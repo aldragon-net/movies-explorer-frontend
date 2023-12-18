@@ -2,7 +2,7 @@ import './SearchForm.css';
 
 function SearchForm () {
   return (
-    <div className="promo">
+    <div className="search-form">
       <h2>Поисковая строка</h2>
     </div>
   )

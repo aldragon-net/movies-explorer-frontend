@@ -10,7 +10,6 @@ import Portfolio from '../Portfolio/Portfolio.js';
 function Main () {
   return (
     <div className="main">
-      <h1>Лендинг</h1>
       <Promo />
       <NavTab />
       <AboutProject />

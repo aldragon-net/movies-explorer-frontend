@@ -1,3 +1,7 @@
 .header {
   height: 74px;
 }
+
+.header_colored {
+  background-color: #f3c1f8;
+}
