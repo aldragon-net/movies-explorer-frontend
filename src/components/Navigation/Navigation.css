@@ -1,0 +1,39 @@
+.navigation {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  align-items: center;
+}
+
+.navigation__profile {
+  margin-left: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 13px;
+  text-decoration: none;
+}
+
+.navigation__profile-icon {
+  margin: 0;
+  align-self: center;
+  background-image: url('../../images/icons/head_black.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #f9f9f9;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+}
+
+.navigation__profile-icon_inverted {
+  background-image: url('../../images/icons/head_pink.svg');
+  background-color: black;
+}
+
+.navigation__link {
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  line-height: 18px;
+}
