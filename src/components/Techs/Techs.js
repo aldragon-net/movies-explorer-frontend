@@ -2,9 +2,23 @@ import './Techs.css';
 
 function Techs () {
   return (
-    <div className="about-me">
-      <h2>Технологии</h2>
-    </div>
+    <section className="techs">
+      <h2 className="techs__title">Технологии</h2>
+      <div className="techs__count">7 технологий</div>
+      <div className="techs__info">
+        На курсе веб-разработки мы освоили технологии,
+        которые применили в дипломном проекте.
+      </div>
+      <ul className="techs__list">
+        <li className="techs__item">HTML</li>
+        <li className="techs__item">CSS</li>
+        <li className="techs__item">JS</li>
+        <li className="techs__item">React</li>
+        <li className="techs__item">Git</li>
+        <li className="techs__item">Express.js</li>
+        <li className="techs__item">mongoDB</li>
+      </ul>
+    </section>
   )
 }
 
