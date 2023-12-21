@@ -14,27 +14,27 @@ import NotFound from '../NotFound/NotFound.js';
 function App() {
   return (
     <div className="App">
-      <Header />
       <Routes>
         <Route
           path="/"
           element={
-            <Main />
+            <><Header /><Main /><Footer /></>
           } />
         <Route
           path="/movies"
           element={
-            <Movies />
+            <><Header /><Movies /><Footer /></>
           } />
         <Route
           path="/saved-movies"
           element={
-            <SavedMovies />
+            <><Header /><SavedMovies /><Footer /></>
           } />
         <Route
           path="/profile"
           element={
             <>
+              <Header />
               <Profile />
             </>
           } />
@@ -54,7 +54,6 @@ function App() {
           path="*"
           element={<NotFound />} />
       </Routes>
-      <Footer />
     </div>
 );
 }

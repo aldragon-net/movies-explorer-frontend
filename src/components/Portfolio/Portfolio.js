@@ -1,5 +1,6 @@
 import './Portfolio.css';
 import arrow from '../../images/icons/arrow-upright.svg';
+import { Link } from 'react-router-dom';
 
 const projects = [{
   id: 1,
@@ -20,10 +21,10 @@ function Portfolio () {
     <div className="portfolio">
       <h3 className="portfolio__title">Портфолио</h3>
       {projects.map((project, i) => (
-      <div key={project.id} className="portfolio__item">
-        <a href={project.url} className="portfolio__link">{project.name}</a>
+      <Link to={project.url} key={project.id} className="portfolio__item">
+        <span className="portfolio__link">{project.name}</span>
         <img src={arrow} />
-       </div>
+       </Link>
     ))}
     </div>
   )
