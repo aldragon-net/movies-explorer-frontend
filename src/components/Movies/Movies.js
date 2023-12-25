@@ -1,14 +1,14 @@
 import './Movies.css';
-
-import Preloader from '../Preloader/Preloader.js'
+import dummyMovies from '../../utils/dummy-movies.js'
 import SearchForm from '../SearchForm/SearchForm.js';
+import MoviesCardList from '../MoviesCardList/MoviesCardList.js';
 
 function Movies () {
   return (
     <div className="movies">
       <SearchForm />
-      <h1>Фильмы</h1>
-      <Preloader />
+      <MoviesCardList movies={dummyMovies} />
+      <button className="movies__button" type="button">Ещё</button>
     </div>
   )
 }
