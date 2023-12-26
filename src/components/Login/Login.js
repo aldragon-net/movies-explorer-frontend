@@ -1,32 +1,36 @@
 import './Login.css';
 import '../Form/Form.css';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import Form from '../Form/Form';
 
 function Login () {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-
   const onSubmit = (data) => {
     console.log(data);
   };
-
+  const loginInputs = [
+    {
+      name: "login-email",
+      label: "Email",
+      type: "email",
+      validationSchema: { required: "Введите e-mail", pattern: /^\S+@\S+$/i }
+    },
+    {
+      name: "login-password",
+      label: "Password",
+      type: "password",
+      validationSchema: { required: "Введите пароль" }
+    },
+  ]
   return (
     <div className="login">
-      <form className="form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="form__logo"></div>
-        <h2 className="form__heading">Рады видеть!</h2>
-        <div className="form__input-area">
-          <label className="form__label">Email</label>
-          <input className="form__input" type="email" {...register("email", { required: true, pattern: /^\S+@\S+$/i })} />
-          <p className='form__error'>{errors.email && 'Email is required and must be valid'}</p>
-          <label className="form__label">Password</label>
-          <input className="form__input" type="password" {...register("password", { required: true })} />
-          <p className='form__error'>{errors.password && 'Password is required'}</p>
-        </div>
-        <button className="form__button" type="submit">Войти</button>
-        <span className="form__hint">Еще не зарегистрированы?</span>
-        <Link to="/signup" className="form__link">Регистрация</Link>
-      </form>
+      <Form
+        name="login"
+        title="Рады видеть"
+        inputs={loginInputs}
+        onSubmit={onSubmit}
+        buttonText="Войти"
+        altText="Еще не зарегистрированы?"
+        altLink="/signup"
+        altLinkText="Регистрация" />
     </div>
   );
 }

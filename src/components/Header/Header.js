@@ -9,7 +9,7 @@ import MobileMenu from '../MobileMenu/MobileMenu.js';
 const isLogged = true
 
 function Header () {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const handleMobileMenuSwitch = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   }
@@ -18,7 +18,7 @@ function Header () {
     <>
     <MobileMenu isOpen={isMobileMenuOpen} onClose={handleMobileMenuSwitch} />
     <div className={`header ${isLanding && 'header_colored'}`}>
-      <NavLink to="/" className="navigation__link"><img src={headerLogo} className="header__logo"/></NavLink>
+      <NavLink to="/" className="navigation__link"><img src={headerLogo} alt ="" className="header__logo"/></NavLink>
       { isLogged ? <>
         <Navigation />
         <button className="header__menu-switch" onClick={handleMobileMenuSwitch}/>

@@ -1,46 +1,64 @@
 import './Profile.css';
 import '../Form/Form.css';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 
 function Profile () {
 
-
-  const { register, handleSubmit, formState: { errors } } = useForm();
   const [isEdited, setIsEdited] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    handleEdit();
+  }
   const handleEdit = () => {
     setIsEdited(!isEdited);
   }
+  const handleNameChange = (e) => {
+    setUserName(e.target.value)
+  }
+  const handleEmailChange = (e) => {
+    setUserEmail(e.target.value)
+  }
+  const user = useContext(CurrentUserContext);
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+
+  useEffect(() => {
+    setUserName(user.name);
+    setUserEmail(user.email);
+    }, []);
 
   return (
     <div className="profile">
-      <form className="profile__form" onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="profile__heading">Привет, Александр!</h2>
+      <form className="profile__form" onSubmit={onSubmit}>
+        <h2 className="profile__heading">{`Привет, ${user.name}!`}</h2>
         <div className="profile__field">
             <label className="profile__label">Имя</label>
             <input
               className={`profile__input ${!isEdited && 'profile__input_inactive'}`}
-              value="Александр"
+              value={userName}
+              onChange={handleNameChange}
               type="text"
-              readonly
-              {...register("name", { required: true })} />
+             />
         </div>
         <div className="profile__field">
             <label className="profile__label">Email</label>
             <input
               className={`profile__input ${!isEdited && 'profile__input_inactive'}`}
-              value="pochta@yandex.ru" type="email" {...register("email", { required: true })} />
+              value={userEmail}
+              onChange={handleEmailChange}
+              type="email" />
         </div>
         <p className="profile__error">{errorMessage}</p>
       {!isEdited ?
-        <><p className="profile__edit" onClick={handleEdit}>Редактировать</p><p className="profile__logout">Выйти из аккаунта</p></>
+        <>
+          <p className="profile__edit" onClick={handleEdit}>Редактировать</p>
+          <p className="profile__logout">Выйти из аккаунта</p>
+        </>
       :
-        <button className="profile__button" onClick={handleEdit}>Сохранить</button>
+        <button className="profile__button" type="submit">Сохранить</button>
       }
 
       </form>
