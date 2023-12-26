@@ -4,6 +4,11 @@
   column-gap: 20px;
   align-items: center;
 }
+@media screen and (max-width: 700px) {
+  .navigation {
+    display: none;
+  }
+}
 
 .navigation__profile {
   margin-left: 30px;

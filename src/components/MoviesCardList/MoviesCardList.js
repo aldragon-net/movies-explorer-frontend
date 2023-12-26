@@ -5,7 +5,7 @@ function MoviesCardList ({ movies, showSavedByUser }) {
   return (
     <ul className="movies-card-list">
       {movies.map((movie, i) => (
-        <MoviesCard movie={movie} showSavedByUser={showSavedByUser} />
+        <MoviesCard key={i} movie={movie} showSavedByUser={showSavedByUser} />
        ))}
     </ul>
   )

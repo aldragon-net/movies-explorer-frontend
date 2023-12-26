@@ -19,10 +19,17 @@ function Header () {
     <MobileMenu isOpen={isMobileMenuOpen} onClose={handleMobileMenuSwitch} />
     <div className={`header ${isLanding && 'header_colored'}`}>
       <NavLink to="/" className="navigation__link"><img src={headerLogo} alt ="" className="header__logo"/></NavLink>
-      { isLogged ? <>
-        <Navigation />
-        <button className="header__menu-switch" onClick={handleMobileMenuSwitch}/>
-      </> : <div>Регистрация</div> }
+      { isLogged ?
+        <>
+          <Navigation />
+          <button className="header__menu-switch" onClick={handleMobileMenuSwitch}/>
+        </>
+       : <>
+          <div>
+            <span className="navigation__link">Регистрация</span>
+            <button>Войти</button>
+          </div>
+        </> }
     </div>
     </>
   )

@@ -7,6 +7,16 @@
   justify-content: space-between;
   align-items: center;
 }
+@media screen and (max-width: 900px) {
+  .header {
+    padding: 18px 30px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .header {
+    padding: 18px 16px 18px 14px;
+  }
+}
 
 .header_colored {
   background-color: #f3c1f8;
@@ -18,10 +28,10 @@
 }
 
 .header__menu-switch {
+  display: none;
   background-image: url('../../images/icons/burger.svg');
   background-repeat: no-repeat;
   background-size: cover;
-  display: none;
   width: 28px;
   height: 23px;
   object-fit: fill;
@@ -34,7 +44,7 @@
     opacity: 0.8;
   }
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 700px) {
   .header__menu-switch {
     display: inline-block;
   }
