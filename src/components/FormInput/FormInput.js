@@ -6,7 +6,7 @@ function FormInput ({ name, label, register, errors, type, validationSchema }) {
     <>
       <label className="form-input__label">{label}</label>
       <input
-        className="form-input__field"
+        className={`form-input__field ${errors[name] && "form-input__field_nonvalid"}`}
         id={name}
         name={name}
         type={type}

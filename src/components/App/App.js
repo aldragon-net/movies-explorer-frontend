@@ -14,7 +14,7 @@ import NotFound from '../NotFound/NotFound.js';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({name: 'Василий', email: 'alex@mail.net'});
+  const [currentUser, setCurrentUser] = useState({name: 'Александр', email: 'alex@mail.net'});
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

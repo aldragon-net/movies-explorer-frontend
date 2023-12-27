@@ -3,16 +3,17 @@
 }
 @media screen and (max-width: 900px) {
   .about-project {
-    padding: 110px 50px;
+    padding: 90px 50px;
   }
 }
 @media screen and (max-width: 550px) {
   .about-project {
-    padding: 110px 14px;
+    padding: 70px 14px;
   }
 }
 
 .about-project__title {
+  margin: 0;
   text-align: left;
   min-height: 50px;
   font-size: 22px;
@@ -20,18 +21,28 @@
   letter-spacing: -0.04em;
   border-bottom: 1px solid black;
 }
+@media screen and (max-width: 550px) {
+  .about-project__title {
+    font-size: 18px;
+  }
+}
 
 .about-project__description {
-  margin-top: 70px;
-  margin-bottom: 110px;
+  margin: 70px 0 110px;
   display: flex;
   flex-direction: row;
   column-gap: 40px;
   row-gap: 56px;
 }
+@media screen and (max-width: 900px) {
+  .about-project__description {
+    column-gap: 30px;
+  }
+}
 @media screen and (max-width: 550px) {
   .about-project__description {
     flex-direction: column;
+    margin: 60px 0;
   }
 }
 
@@ -40,22 +51,38 @@
   flex-direction: column;
   row-gap: 26px;
 }
+@media screen and (max-width: 550px) {
+  .about-project__fact {
+    row-gap: 16px;
+  }
+}
 .about-project__fact-title {
   font-size: 20px;
   font-weight: 400;
   letter-spacing: -0.04em;
   text-align: left;
 }
+@media screen and (max-width: 550px) {
+  .about-project__fact-title {
+    font-size: 18px;
+  }
+}
 
 .about-project__fact-info {
   font-size: 14px;
   font-weight: 400;
-  line-height: 1.43;
+  line-height: 1.44;
   text-align: left;
 }
-
-.about-project__description {
-  display: flex;
+@media screen and (max-width: 900px) {
+  .about-project__fact-info {
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .about-project__fact-info {
+    font-size: 11px;
+  }
 }
 
 .about-project__timeline {
@@ -69,17 +96,19 @@
   line-height: 36px;
   text-align: center;
 }
-
+@media screen and (max-width: 550px) {
+  .about-project__stage {
+    font-size: 11px;
+  }
+}
 .about-project__stage_color_black {
   background-color: black;
   color: white;
 }
-
 .about-project__stage_color_gray {
   background-color: #f2f2f2;
   color: black;
 }
-
 .about-project__stage_color_white {
   background-color: white;
   color: #a0a0a0;

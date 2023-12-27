@@ -15,16 +15,23 @@
 }
 
 .navtab__item {
-  padding: 0 10px;
+  padding: 0 20px;
   align-self: center;
   font-size: 13px;
   line-height: 1.23;
 }
+@media screen and (max-width: 550px) {
+  .navtab__item{
+    padding: 0 12px;
+    font-size: 11px;
+  }
+}
 
 .navtab__link {
   color: white;
+  text-underline-offset: 3px;
 }
-
 .navtab__link:visited {
-  color: white;
+  color: whit
+  e;
 }

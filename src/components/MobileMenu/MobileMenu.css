@@ -25,6 +25,7 @@
   display: flex;
   justify-content: right;
 }
+
 .mobile-menu__close {
   border: none;
   width: 22px;
@@ -53,7 +54,6 @@
   width: fit-content;
 
 }
-
 .mobile-menu__link_active {
   border-bottom: 2px solid black;
 }
@@ -75,6 +75,7 @@
   font-size: 14px;
   line-height: 30px;
 }
+
 .mobile-menu__profile-icon {
   display: block;
   margin: 0;

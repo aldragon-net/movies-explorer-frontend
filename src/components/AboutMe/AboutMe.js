@@ -1,10 +1,11 @@
 import './AboutMe.css';
 import myPhoto from '../../images/aboutme/alexander_drakon.jpg'
 import Portfolio from '../Portfolio/Portfolio.js';
+import { Link } from 'react-router-dom';
 
 function AboutMe () {
   return (
-    <div className="about-me">
+    <section id="about-me" className="about-me">
       <h2 className="about-me__title">Студент</h2>
       <div className="about-me__info">
         <div className="about-me__text">
@@ -17,12 +18,12 @@ function AboutMe () {
               Работаю в Объединенном институте высоких температур.
             </div>
           </div>
-          <a href="#" className="about-me__link">Github</a>
+          <Link to="https://github.com/aldragon-net" className="about-me__link" target="_blank">Github</Link>
         </div>
-        <img src={myPhoto} className="about-me__photo" />
+        <img src={myPhoto} alt="портрет автора проекта" className="about-me__photo" />
       </div>
       <Portfolio />
-    </div>
+    </section>
   )
 }
 

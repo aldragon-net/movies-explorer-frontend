@@ -15,7 +15,7 @@ function Login () {
     },
     {
       name: "login-password",
-      label: "Password",
+      label: "Пароль",
       type: "password",
       validationSchema: { required: "Введите пароль" }
     },
@@ -24,7 +24,7 @@ function Login () {
     <div className="login">
       <Form
         name="login"
-        title="Рады видеть"
+        title="Рады видеть!"
         inputs={loginInputs}
         onSubmit={onSubmit}
         buttonText="Войти"

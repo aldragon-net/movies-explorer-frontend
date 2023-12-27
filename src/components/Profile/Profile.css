@@ -1,11 +1,17 @@
 .profile {
   display: flex;
   height: calc(100vh - 74px);
+  justify-content: center;
 }
 
 .profile__form {
   margin: auto;
   width: 410px;
+}
+@media screen and (max-width: 550px) {
+  .profile__form {
+    margin: 70px 30px 40px;
+  }
 }
 
 .profile__heading {
@@ -38,7 +44,6 @@
   font-size: 11px;
   font-weight: 400;
 }
-
 .profile__input_inactive {
   pointer-events: none;
 }
@@ -48,6 +53,7 @@
   font-size: 13px;
   cursor: pointer;
 }
+
 .profile__button {
   margin: 20px 0 0;
   padding: 0;
@@ -81,4 +87,9 @@
   font-size: 11px;
   color: #ff4062;
   cursor: pointer;
+}
+@media screen and (max-width: 550px) {
+  .profile__error {
+    margin-top: 345px;
+  }
 }

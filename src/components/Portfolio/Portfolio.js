@@ -1,19 +1,18 @@
 import './Portfolio.css';
-import arrow from '../../images/icons/arrow-upright.svg';
 import { Link } from 'react-router-dom';
 
 const projects = [{
   id: 1,
   name: 'Статичный сайт',
-  url: 'https://www.com',
+  url: 'http://aldragon.net/static/index.html',
 }, {
   id: 2,
   name: 'Адаптивный сайт',
-  url: 'https://www.com',
+  url: 'https://aldragon-net.github.io/',
 }, {
   id: 3,
   name: 'Одностраничное приложение',
-  url: 'https://www.com',
+  url: 'https://aldragon.nomoredomainsmonster.ru',
 }];
 
 function Portfolio () {
@@ -21,10 +20,10 @@ function Portfolio () {
     <div className="portfolio">
       <h3 className="portfolio__title">Портфолио</h3>
       {projects.map((project, i) => (
-      <Link to={project.url} key={project.id} className="portfolio__item">
+      <Link key={project.id} to={project.url} className="portfolio__item" target="_blank">
         <span className="portfolio__link">{project.name}</span>
-        <img src={arrow} />
-       </Link>
+        <span className="portfolio__link">↗</span>
+      </Link>
     ))}
     </div>
   )

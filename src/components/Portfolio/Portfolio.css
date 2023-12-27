@@ -9,6 +9,11 @@
   line-height: 1.11;
   font-weight: 400;
 }
+@media screen and (max-width: 600px) {
+  .portfolio__title{
+    font-size: 14px;
+  }
+}
 
 .portfolio__item {
   padding: 20px 0;
@@ -23,10 +28,22 @@
 }
 
 .portfolio__link {
-
-  color: black
+  color: black;
+  font-size: 30px;
+  line-height: 1.66;
 }
 .portfolio__link:visited {
   color: black;
 }
-
+@media screen and (max-width: 900px) {
+  .portfolio__link {
+    font-size: 28px;
+    line-height: 1.79;
+  }
+}
+@media screen and (max-width: 600px) {
+  .portfolio__link{
+    font-size: 18px;
+    line-height: 1.55;
+  }
+}

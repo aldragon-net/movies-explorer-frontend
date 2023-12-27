@@ -27,6 +27,29 @@
   margin: 0;
 }
 
+.header__link {
+  text-decoration: none;
+  color: black;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.header__button {
+  width: 76px;
+  height: 32px;
+  margin-left: 30px;
+  background-color: black;
+  border: none;
+  border-radius: 3px;
+  text-decoration: none;
+  color: white;
+  font-size: 12px;
+  line-height: 32px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
 .header__menu-switch {
   display: none;
   background-image: url('../../images/icons/burger.svg');

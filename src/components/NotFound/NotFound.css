@@ -2,12 +2,28 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: calc(60px + min(182px, max(0px, 1280px - 100vw))) 0;
+  padding: 60px 0;
   box-sizing: border-box;
+}
+@media screen and (max-width: 900px) {
+  .not-found {
+    padding: 222px 0;
+  }
+}
+@media screen and (max-width: 550px) {
+  .not-found {
+    padding: 30px 0;
+  }
 }
 
 .not-found__code {
+  margin: 0;
   font-size: 140px;
+}
+@media screen and (max-width: 550px) {
+  .not-found__code{
+    font-size: 80px;
+  }
 }
 
 .not-found__message {
@@ -20,11 +36,22 @@
 .not-found__title {
   font-size: 16px;
   font-weight: 400;
-  margin-bottom: 5px;
+  margin-top: 5px;
+}
+@media screen and (max-width: 550px) {
+  .not-found__title{
+    font-size: 12px;
+    margin-top: 10px;
+  }
 }
 
 .not-found__backlink {
   font-size: 14px;
   font-weight: 400;
   cursor: pointer;
+}
+@media screen and (max-width: 550px) {
+  .not-found__backlink{
+    font-size: 12px;
+  }
 }

@@ -25,6 +25,7 @@ function Form ({ name, title, inputs, onSubmit, buttonText, altText, altLink, al
           validationSchema={input.validationSchema} />
       ))}
       </div>
+      <span className="form__response-error"></span>
       <button
         className={`form__button ${Object.keys(formState.errors).length > 0 && "form__button_inactive"}`}
         type="submit">
