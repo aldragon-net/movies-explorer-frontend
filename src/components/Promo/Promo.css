@@ -1,5 +1,5 @@
 .promo {
-  padding: 0 70px;
+  width: 100%;
   background-color: #f3c1f8;
   background-image: url('../../images/logos/logo_landing.svg');
   background-repeat: no-repeat;
@@ -7,14 +7,22 @@
   min-height: 524px;
   display: flex;
 }
+
+
+.promo__content {
+  width: min(1280px, 100%);
+  padding: 0 70px;
+  margin: auto;
+  display: flex;
+}
 @media screen and (max-width: 900px) {
-  .promo {
+  .promo__content {
     padding: 0 20px;
     min-height: 784px;
   }
 }
 @media screen and (max-width: 550px) {
-  .promo {
+  .promo__content {
     padding: 0 10px;
     min-height: 720px;
   }
@@ -24,6 +32,7 @@
   margin: auto;
   position: relative;
   top: -20px;
+  text-align: center;
   font-size: 50px;
   font-weight: 400;
   max-width: 730px;

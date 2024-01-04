@@ -14,26 +14,37 @@ import NotFound from '../NotFound/NotFound.js';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({name: 'Александр', email: 'alex@mail.net'});
+  const [ currentUser ] = useState({name: 'Александр', email: 'alex@mail.net'});
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="App">
+      <div className="app">
         <Routes>
           <Route
             path="/"
             element={
-              <><Header /><Main /><Footer /></>
+              <>
+                <Header />
+                <Main />
+                <Footer /></>
             } />
           <Route
             path="/movies"
             element={
-              <><Header /><Movies /><Footer /></>
+              <>
+                <Header />
+                <Movies />
+                <Footer />
+              </>
             } />
           <Route
             path="/saved-movies"
             element={
-              <><Header /><SavedMovies /><Footer /></>
+              <>
+                <Header />
+                <SavedMovies />
+                <Footer />
+              </>
             } />
           <Route
             path="/profile"
@@ -46,18 +57,18 @@ function App() {
           <Route
             path="/signin"
             element={
-            <Login />
+              <Login />
             } />
           <Route
             path="/signup"
             element={
-              <>
-                <Register />
-              </>
+              <Register />
             } />
           <Route
             path="*"
-            element={<NotFound />} />
+            element={
+              <NotFound />
+            } />
         </Routes>
       </div>
     </CurrentUserContext.Provider>

@@ -6,7 +6,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 function Profile () {
 
   const [isEdited, setIsEdited] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage] = useState('');
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -28,10 +28,10 @@ function Profile () {
   useEffect(() => {
     setUserName(user.name);
     setUserEmail(user.email);
-    }, []);
+    }, [user.name, user.email]);
 
   return (
-    <div className="profile">
+    <main className="profile">
       <form className="profile__form" onSubmit={onSubmit}>
         <h2 className="profile__heading">{`Привет, ${user.name}!`}</h2>
         <div className="profile__field">
@@ -62,7 +62,7 @@ function Profile () {
       }
 
       </form>
-    </div>
+    </main>
   );
 }
 

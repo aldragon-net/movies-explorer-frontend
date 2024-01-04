@@ -21,7 +21,7 @@ function Login () {
     },
   ]
   return (
-    <div className="login">
+    <main className="login">
       <Form
         name="login"
         title="Рады видеть!"
@@ -31,7 +31,7 @@ function Login () {
         altText="Еще не зарегистрированы?"
         altLink="/signup"
         altLinkText="Регистрация" />
-    </div>
+    </main>
   );
 }
 

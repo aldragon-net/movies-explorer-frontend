@@ -1,5 +1,8 @@
 .footer {
-  padding: 79px 70px 20px
+  width: min(1280px, 100%);
+  box-sizing: border-box;
+  padding: 79px 70px 20px;
+  text-align: center;
 }
 @media screen and (max-width: 900px) {
   .footer {

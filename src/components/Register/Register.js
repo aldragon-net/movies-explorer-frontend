@@ -34,7 +34,7 @@ function Register () {
   };
 
   return (
-    <div className="register">
+    <main className="register">
       <Form
         name="register"
         title="Добро пожаловать!"
@@ -44,7 +44,7 @@ function Register () {
         altText="Уже зарегистрированы?"
         altLink="/signin"
         altLinkText="Войти" />
-    </div>
+    </main>
   );
 }
 

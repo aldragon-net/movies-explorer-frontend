@@ -22,7 +22,6 @@ function AboutProject () {
           </div>
         </div>
       </div>
-
       <div className="about-project__timeline">
         <span className="about-project__stage about-project__stage_color_black">1 неделя</span>
         <span className="about-project__stage about-project__stage_color_gray">4 недели</span>

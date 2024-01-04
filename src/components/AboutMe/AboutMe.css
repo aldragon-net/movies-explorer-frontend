@@ -1,4 +1,6 @@
 .about-me {
+  width: min(1280px, 100%);
+  box-sizing: border-box;
   padding: 110px 70px 90px;
 }
 @media screen and (max-width: 900px) {

@@ -1,12 +1,12 @@
 .search-form {
-  margin: 70px;
+  margin: 70px 70px 0;
   box-sizing: border-box;
   padding: 0 0 70px;
   border-bottom: 1px solid #e8e8e8;
 }
 @media screen and (max-width: 900px) {
   .search-form {
-    margin: 30px;
+    margin: 30px 30px 0;
     padding: 0 0 110px;
   }
 }
@@ -17,7 +17,7 @@
 }
 @media screen and (max-width: 550px) {
   .search-form {
-    margin: 10px;
+    margin: 10px 10px 0;
   }
 }
 
@@ -60,6 +60,9 @@
   line-height: 1.11;
   flex-grow: 1;
 }
+.search-form__input:focus {
+  outline: none;
+}
 @media screen and (max-width: 550px) {
   .search-form__input {
     font-size: 14px;
@@ -78,7 +81,14 @@
   line-height: 1.64;
   font-weight: 500;
   border-radius: 48px;
+  cursor: pointer;
 }
+@media (hover: hover) {
+  .search-form__button:hover {
+    opacity: 0.8;
+  }
+}
+
 
 .search-form__inline-switch {
   display: flex;

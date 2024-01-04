@@ -5,6 +5,7 @@
   background-color: white;
   color: black;
   display: block;
+  text-align: center;
 }
 @media screen and (max-width: 550px) {
   .form {

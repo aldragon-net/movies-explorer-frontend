@@ -17,6 +17,7 @@ function Form ({ name, title, inputs, onSubmit, buttonText, altText, altLink, al
       <div className="form__input-area">
       {inputs.map((input, i) => (
         <FormInput
+          key={input.name}
           name={input.name}
           label={input.label}
           type={input.type}

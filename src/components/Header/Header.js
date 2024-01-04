@@ -15,25 +15,28 @@ function Header () {
   }
   const isLanding = useMatch("/");
   return (
-    <>
-    <MobileMenu isOpen={isMobileMenuOpen} onClose={handleMobileMenuSwitch} />
-    <div className={`header ${isLanding && 'header_colored'}`}>
-      <NavLink to="/" className="header__link"><img src={headerLogo} alt ="" className="header__logo"/></NavLink>
-      { isLogged ?
-        <>
-          <Navigation />
-          <button className="header__menu-switch" onClick={handleMobileMenuSwitch}/>
-        </>
-       : <>
-          <div>
-            <NavLink to="/signup" className="header__link">Регистрация</NavLink>
-            <NavLink to="/signin" className="header__link">
-              <button type="button" className="header__button">Войти</button>
-            </NavLink>
-          </div>
-        </> }
-    </div>
-    </>
+      <header className={`header ${isLanding && 'header_color_pink'}`}>
+        <MobileMenu isOpen={isMobileMenuOpen} onClose={handleMobileMenuSwitch} />
+        <div className="header__container">
+          <NavLink to="/" className="header__link">
+            <img src={headerLogo} alt ="лого Movies Explorer" className="header__logo"/>
+          </NavLink>
+          { isLogged ?
+            <>
+              <Navigation />
+              <button className="header__menu-switch" onClick={handleMobileMenuSwitch}/>
+            </>
+          : <>
+              <div>
+                <NavLink to="/signup" className="header__link">Регистрация</NavLink>
+                <NavLink to="/signin" className="header__link">
+                  <button type="button" className="header__button">Войти</button>
+                </NavLink>
+              </div>
+            </>
+          }
+        </div>
+      </header>
   )
 }
 

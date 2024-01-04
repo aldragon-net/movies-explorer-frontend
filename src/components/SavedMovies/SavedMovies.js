@@ -7,10 +7,10 @@ const moviesSavedByUser = dummyMovies.filter((movie) => movie.isSaved);
 
 function SavedMovies () {
   return (
-    <div className="movies">
+    <main className="saved-movies">
       <SearchForm />
       <MoviesCardList movies={moviesSavedByUser} showSavedByUser={true} />
-    </div>
+    </main>
   )
 }
 

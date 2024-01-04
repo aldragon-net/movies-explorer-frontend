@@ -5,11 +5,11 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList.js';
 
 function Movies () {
   return (
-    <div className="movies">
+    <main className="movies">
       <SearchForm />
       <MoviesCardList movies={dummyMovies} />
       <button className="movies__button" type="button">Ещё</button>
-    </div>
+    </main>
   )
 }
 
