@@ -1,0 +1,114 @@
+.techs {
+  width: 100%;
+  display: flex;
+  background-color: #f5f5f5;
+}
+
+.techs__content {
+  width: min(1280px, 100%);
+  margin: auto;
+  box-sizing: border-box;
+  padding: 100px 70px;
+  text-align: center;
+}
+@media screen and (max-width: 900px) {
+  .techs__content {
+    padding: 90px 50px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .techs__content {
+    padding: 70px 14px;
+  }
+}
+
+.techs__title {
+  text-align: left;
+  min-height: 50px;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  border-bottom: 1px solid black;
+  margin-bottom: 90px;
+}
+@media screen and (max-width: 550px) {
+  .techs__title {
+    margin-bottom: 60px;
+    font-size: 18px;
+  }
+}
+
+.techs__count {
+  margin-bottom: 26px;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+}
+@media screen and (max-width: 550px) {
+  .techs__count {
+    margin-bottom: 24px;
+    font-size: 30px;
+    line-height: 1.0;
+  }
+}
+
+.techs__info {
+  margin: auto;
+  max-width: 460px;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.04em;
+  margin-bottom: 100px;
+}
+@media screen and (max-width: 900px) {
+  .techs__info {
+    margin-bottom: 83px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .techs__info {
+    margin-bottom: 50px;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+}
+
+.techs__list {
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  column-gap: 10px;
+  row-gap: 10px;
+  justify-content: center;
+}
+@media screen and (max-width: 500px) {
+  .techs__list {
+    width: fit-content;
+    justify-content: left;
+    margin: 0 52px;
+    justify-content: space-between;
+  }
+}
+
+.techs__item {
+  list-style: none;
+  min-width: 90px;
+  line-height: 60px;
+  background-color: #e8e8e8;
+  border-radius: 10px;
+  font-size: 14px;
+  letter-spacing: -0.04em;
+}
+@media screen and (max-width: 900px) {
+  .techs__item {
+    min-width: 87px;
+    line-height: 57px;
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .techs__item {
+    min-width: 84px;
+  }
+}

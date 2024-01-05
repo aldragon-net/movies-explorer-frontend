@@ -1,0 +1,38 @@
+.navtab {
+  width: 100%;
+  background-color: black;
+  height: 66px;
+  display: flex;
+}
+
+.navtab__items {
+  margin: auto;
+  width: min(1280px, 100%);
+  padding: 0;
+  text-indent: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.navtab__item {
+  padding: 0 20px;
+  align-self: center;
+  font-size: 13px;
+  line-height: 1.23;
+}
+@media screen and (max-width: 550px) {
+  .navtab__item {
+    padding: 0 12px;
+    font-size: 11px;
+  }
+}
+
+.navtab__link {
+  color: white;
+  text-underline-offset: 3px;
+}
+.navtab__link:visited {
+  color: white;
+}

@@ -1,0 +1,11 @@
+@import url("./vendor/normalize.css");
+@import url("./vendor/fonts/fonts.css");
+
+body {
+  min-height: 100vh;
+  background-color: white;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  color: black;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
