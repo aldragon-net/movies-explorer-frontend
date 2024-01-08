@@ -6,7 +6,9 @@
 }
 
 .movies-card__image {
-  object-fit: contain;
+  object-fit: cover;
+  border-radius: 6px;
+  aspect-ratio: 1.786;
 }
 
 .movies-card__info {

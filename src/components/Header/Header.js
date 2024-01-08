@@ -1,12 +1,11 @@
-import { useState } from 'react';
-
 import './Header.css';
 import headerLogo from '../../images/logos/logo_circle.svg';
 import Navigation from '../Navigation/Navigation.js';
+import { useState, useContext } from 'react';
 import { useMatch, NavLink } from 'react-router-dom';
 import MobileMenu from '../MobileMenu/MobileMenu.js';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 
-const isLogged = true;  // TODO
 
 function Header () {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,6 +13,7 @@ function Header () {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   }
   const isLanding = useMatch("/");
+  const user = useContext(CurrentUserContext);
   return (
       <header className={`header ${isLanding && 'header_color_pink'}`}>
         <MobileMenu isOpen={isMobileMenuOpen} onClose={handleMobileMenuSwitch} />
@@ -21,7 +21,7 @@ function Header () {
           <NavLink to="/" className="header__link">
             <img src={headerLogo} alt ="лого Movies Explorer" className="header__logo"/>
           </NavLink>
-          { isLogged ?
+          { user.isAuthorized ?
             <>
               <Navigation />
               <button className="header__menu-switch" onClick={handleMobileMenuSwitch}/>

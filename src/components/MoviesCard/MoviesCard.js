@@ -1,11 +1,15 @@
 import './MoviesCard.css';
+import { moviesApiSettings } from '../../utils/settings';
 
 function MoviesCard ({ movie, showSavedByUser=false }) {
   const minutes = movie.duration % 60;
   const hours = (movie.duration - minutes ) / 60;
   return (
     <div className="movies-card">
-      <img src={movie.image.url} alt={movie.nameRu} />
+      <img
+        className="movies-card__image"
+        src={`${moviesApiSettings.baseUrl}${movie.image.url}`}
+        alt={movie.nameRu} />
       <div className="movies-card__info">
         <span className="movies-card__title">{movie.nameRU}</span>
         <span className="movies-card__duration">{ hours > 0 ? `${hours}ч ${minutes}м` : `${minutes}м`}</span>

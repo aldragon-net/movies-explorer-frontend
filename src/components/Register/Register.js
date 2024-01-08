@@ -1,7 +1,7 @@
 import './Register.css';
 import Form from '../Form/Form';
 
-function Register () {
+function Register ({onRegister}) {
   const registerInputs = [
     {
       name: "name",
@@ -31,6 +31,7 @@ function Register () {
 
   const onSubmit = (data) => {
     console.log(data);
+    onRegister(data);
   };
 
   return (

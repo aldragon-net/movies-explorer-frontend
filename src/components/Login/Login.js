@@ -2,19 +2,20 @@ import './Login.css';
 import '../Form/Form.css';
 import Form from '../Form/Form';
 
-function Login () {
+function Login ({onLogin}) {
   const onSubmit = (data) => {
     console.log(data);
+    onLogin(data);
   };
   const loginInputs = [
     {
-      name: "login-email",
+      name: "email",
       label: "Email",
       type: "email",
       validationSchema: { required: "Введите e-mail", pattern: /^\S+@\S+$/i }
     },
     {
-      name: "login-password",
+      name: "password",
       label: "Пароль",
       type: "password",
       validationSchema: { required: "Введите пароль" }
