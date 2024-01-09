@@ -80,7 +80,36 @@ function App() {
       .catch((err) => {
         setFormErrorMessage(err.status)
       })
+  }
 
+  const handleMovieSave = (movieData, onSuccess, OnFail) => {
+    mainApi.saveMovie(movieData)
+      .then((res) => {
+        onSuccess();
+      })
+      .catch((err) => {
+        OnFail();
+      })
+  }
+  const handleMovieDelete = (movieData, onSuccess, OnFail) => {
+    mainApi.getMovies()
+      .then((movies) => {
+        const movieToDelete = movies.find(movie => movie.movieId === movieData.movieId);
+        console.log(movieToDelete);
+        return movieToDelete
+      })
+      .then((movie) => {
+        mainApi.deleteMovie(movie._id)
+          .then((res) => {
+            onSuccess();
+          })
+          .catch((err) => {
+            OnFail();
+          })
+      })
+      .catch((err) => {
+        OnFail();
+      })
   }
 
   return (
@@ -101,7 +130,9 @@ function App() {
             element={
               <ProtectedRoute isAuthorized={isAuthorized}>
                 <Header isAuthorized={isAuthorized} />
-                <Movies />
+                <Movies
+                  handleMovieSave={handleMovieSave}
+                  handleMovieDelete={handleMovieDelete} />
                 <Footer />
               </ProtectedRoute>
             } />
@@ -110,7 +141,9 @@ function App() {
             element={
               <ProtectedRoute isAuthorized={isAuthorized}>
                 <Header isAuthorized={isAuthorized} />
-                <SavedMovies />
+                <SavedMovies
+                  handleMovieSave={handleMovieSave}
+                  handleMovieDelete={handleMovieDelete}/>
                 <Footer />
               </ProtectedRoute>
             } />

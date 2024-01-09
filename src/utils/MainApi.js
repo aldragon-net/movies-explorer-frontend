@@ -1,4 +1,5 @@
 import { mainApiSettings } from './settings.js';
+import { moviesApiSettings } from './settings.js';
 
 class MainApi {
   constructor ( {baseUrl, headers, credentials, endpoints} ) {
@@ -96,7 +97,7 @@ class MainApi {
       {
         method: 'POST',
         headers: this._headers,
-        body: JSON.stringify({movieData})
+        body: JSON.stringify(movieData)
       }
     )
   }
