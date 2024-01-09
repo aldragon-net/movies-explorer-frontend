@@ -1,10 +1,10 @@
 import './Login.css';
 import '../Form/Form.css';
 import Form from '../Form/Form';
+import { emailValidationSchema } from '../../utils/validation.js';
 
-function Login ({onLogin}) {
+function Login ({onLogin, errorMessage}) {
   const onSubmit = (data) => {
-    console.log(data);
     onLogin(data);
   };
   const loginInputs = [
@@ -12,7 +12,7 @@ function Login ({onLogin}) {
       name: "email",
       label: "Email",
       type: "email",
-      validationSchema: { required: "Введите e-mail", pattern: /^\S+@\S+$/i }
+      validationSchema: emailValidationSchema
     },
     {
       name: "password",
@@ -31,7 +31,8 @@ function Login ({onLogin}) {
         buttonText="Войти"
         altText="Еще не зарегистрированы?"
         altLink="/signup"
-        altLinkText="Регистрация" />
+        altLinkText="Регистрация"
+        errorMessage={errorMessage} />
     </main>
   );
 }

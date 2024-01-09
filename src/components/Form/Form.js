@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import FormInput from '../FormInput/FormInput';
 
-function Form ({ name, title, inputs, onSubmit, buttonText, altText, altLink, altLinkText }) {
+function Form ({ name, title, inputs, onSubmit, buttonText, altText, altLink, altLinkText, errorMessage }) {
   const { register, handleSubmit, formState } = useForm();
   return (
     <form
@@ -26,7 +26,7 @@ function Form ({ name, title, inputs, onSubmit, buttonText, altText, altLink, al
           validationSchema={input.validationSchema} />
       ))}
       </div>
-      <span className="form__response-error"></span>
+      <span className="form__response-error">{errorMessage}</span>
       <button
         className={`form__button ${Object.keys(formState.errors).length > 0 && "form__button_inactive"}`}
         type="submit">

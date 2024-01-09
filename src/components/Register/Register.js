@@ -1,31 +1,30 @@
 import './Register.css';
 import Form from '../Form/Form';
+import {
+  nameValidationSchema,
+  emailValidationSchema,
+  passwordValidationSchema
+} from '../../utils/validation.js';
 
-function Register ({onRegister}) {
+function Register ({onRegister, errorMessage}) {
   const registerInputs = [
     {
       name: "name",
       label: "Имя",
       type: "text",
-      validationSchema: { required: "Введите имя" }
+      validationSchema: nameValidationSchema
     },
     {
       name: "email",
       label: "Email",
       type: "email",
-      validationSchema: {
-        required: "Введите E-mail",
-        pattern: {
-          value: /^\S+@\S+$/i,
-          message: "Введите валидный e-mail"
-        }
-      }
+      validationSchema: emailValidationSchema
     },
     {
       name: "password",
       label: "Пароль",
       type: "password",
-      validationSchema: { required: "Введите пароль", minLength: {value: 6, message: "Не менее 6 символов"} }
+      validationSchema: passwordValidationSchema
     },
   ]
 
@@ -44,7 +43,8 @@ function Register ({onRegister}) {
         buttonText="Зарегистрироваться"
         altText="Уже зарегистрированы?"
         altLink="/signin"
-        altLinkText="Войти" />
+        altLinkText="Войти"
+        errorMessage={errorMessage}/>
     </main>
   );
 }

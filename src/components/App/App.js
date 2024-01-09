@@ -18,37 +18,54 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
 
 function App() {
   const navigate = useNavigate();
-  const [ currentUser, setCurrentUser ] = useState({isAuthorized: false, name: '', email: ''});
+  const [ isAuthorized, setIsAuthorized ] = useState(false);
+  const [ currentUser, setCurrentUser ] = useState({name: '', email: ''});
+  const [ formErrorMessage, setFormErrorMessage ] = useState('');
 
   useEffect(() => {
     mainApi.getProfile()
       .then((res) => {
-        setCurrentUser({isAuthorized: true, name: res.name, email: res.email});
+        setIsAuthorized(true);
+        setCurrentUser({name: res.name, email: res.email});
       })
-      .catch((err) => {console.log(`Ошибка связи с сервером: ${err.status}`)})
-    }, [currentUser.isAuthorized]);
+      .catch((err) => {setCurrentUser({name: '', email: ''})})
+    }, [isAuthorized]);
 
   const handleRegistration = (userData) => {
     mainApi.register({name: userData.name, email: userData.email, password: userData.password})
-      .then(() => {
-        setCurrentUser({ ...currentUser, isAuthorized: true});
+      .then((res) => {
+        setIsAuthorized(true);
         navigate('/movies', {replace: true});
+        setFormErrorMessage('');
       })
       .catch((err) => {
-        console.log(`Ошибка регистрации: ${err.status}`);
+        setFormErrorMessage(err.status)
+      })
+      .finally(() => {})
+  }
+
+  const handleProfileUpdate = (userData, onSuccess) => {
+    mainApi.updateProfile({name: userData.name, email: userData.email})
+      .then((res) => {
+        setCurrentUser({name: res.name, email: res.email});
+        setFormErrorMessage('');
+        onSuccess();
+      })
+      .catch((err) => {
+        setFormErrorMessage(err.status)
       })
       .finally(() => {})
   }
 
   const handleLogin = (userData) => {
-    console.log('Логин', userData.email, userData.password)
     mainApi.login({email: userData.email, password: userData.password})
       .then((res) => {
-        setCurrentUser({ ...currentUser, isAuthorized: true});
+        setIsAuthorized(true);
         navigate('/movies', {replace: true});
+        setFormErrorMessage('');
       })
       .catch((err) => {
-        console.log(`Ошибка входа: ${err.status}`);
+        setFormErrorMessage(err.status)
       })
       .finally(() => {})
   }
@@ -56,12 +73,12 @@ function App() {
   const handleLogout = () => {
     mainApi.logout()
       .then((res) => {
-        setCurrentUser({isAuthorized: false, name: '', email: ''});
+        setIsAuthorized(false);
         localStorage.clear();
         navigate('/', {replace: true});
       })
       .catch((err) => {
-        console.log(`Ошибка выхода: ${err}`);
+        setFormErrorMessage(err.status)
       })
 
   }
@@ -74,7 +91,7 @@ function App() {
             path="/"
             element={
               <>
-                <Header />
+                <Header isAuthorized={isAuthorized} />
                 <Main />
                 <Footer />
               </>
@@ -82,8 +99,8 @@ function App() {
           <Route
             path="/movies"
             element={
-              <ProtectedRoute isAuthorized={currentUser.isAuthorized}>
-                <Header />
+              <ProtectedRoute isAuthorized={isAuthorized}>
+                <Header isAuthorized={isAuthorized} />
                 <Movies />
                 <Footer />
               </ProtectedRoute>
@@ -91,8 +108,8 @@ function App() {
           <Route
             path="/saved-movies"
             element={
-              <ProtectedRoute isAuthorized={currentUser.isAuthorized}>
-                <Header />
+              <ProtectedRoute isAuthorized={isAuthorized}>
+                <Header isAuthorized={isAuthorized} />
                 <SavedMovies />
                 <Footer />
               </ProtectedRoute>
@@ -100,25 +117,28 @@ function App() {
           <Route
             path="/profile"
             element={
-              <ProtectedRoute isAuthorized={currentUser.isAuthorized}>
-                <Header />
-                <Profile onLogout={handleLogout}/>
+              <ProtectedRoute isAuthorized={isAuthorized}>
+                <Header isAuthorized={isAuthorized}/>
+                <Profile
+                  onUpdate={handleProfileUpdate}
+                  onLogout={handleLogout}
+                  errorMessage={formErrorMessage} />
               </ProtectedRoute>
             } />
           <Route
             path="/signin"
             element={
-              <Login onLogin={handleLogin} />
+              <Login onLogin={handleLogin} errorMessage={formErrorMessage} />
             } />
           <Route
             path="/signup"
             element={
-              <Register onRegister={handleRegistration} />
+              <Register onRegister={handleRegistration} errorMessage={formErrorMessage} />
             } />
           <Route
             path="*"
             element={
-              <ProtectedRoute isAuthorized={currentUser.isAuthorized}>
+              <ProtectedRoute isAuthorized={isAuthorized}>
                 <NotFound />
               </ProtectedRoute>
             } />
