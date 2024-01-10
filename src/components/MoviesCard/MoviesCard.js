@@ -1,7 +1,5 @@
 import './MoviesCard.css';
-import { moviesApiSettings } from '../../utils/settings';
-import mainApi from '../../utils/MainApi.js';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function MoviesCard ({ movie, handleMovieSave, handleMovieDelete, inSaved, showSavedByUser=false }) {
   const [isSaved, setIsSaved] = useState(inSaved);

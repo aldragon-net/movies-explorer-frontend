@@ -5,14 +5,16 @@ function MoviesCardList ({ movies, savedIds, showSavedByUser, handleMovieSave, h
   return (
     <ul className="movies-card-list">
       {movies.map((movie, i) => (
-        <MoviesCard
-          key={movie.movieId}
-          movie={movie}
-          inSaved={savedIds.includes(movie.movieId)}
-          showSavedByUser={showSavedByUser}
-          handleMovieSave={handleMovieSave}
-          handleMovieDelete={handleMovieDelete} />
-       ))}
+        <li className="movies-card-list__item">
+          <MoviesCard
+            key={movie.movieId}
+            movie={movie}
+            inSaved={savedIds.includes(movie.movieId)}
+            showSavedByUser={showSavedByUser}
+            handleMovieSave={handleMovieSave}
+            handleMovieDelete={handleMovieDelete} />
+        </li>
+      ))}
     </ul>
   )
 }

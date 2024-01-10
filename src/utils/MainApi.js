@@ -1,5 +1,4 @@
 import { mainApiSettings } from './settings.js';
-import { moviesApiSettings } from './settings.js';
 
 class MainApi {
   constructor ( {baseUrl, headers, credentials, endpoints} ) {

@@ -1,14 +1,17 @@
 .movies-card {
+  width: min(380px, 100%);
   display: flex;
   flex-direction: column;
   row-gap: 14px;
   position: relative;
+  margin: 0 auto;
 }
 
 .movies-card__image {
+  width: 100%;
+  aspect-ratio: 1.768;
   object-fit: cover;
   border-radius: 6px;
-  aspect-ratio: 1.786;
 }
 
 .movies-card__info {

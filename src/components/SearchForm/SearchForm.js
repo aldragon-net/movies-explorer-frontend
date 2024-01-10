@@ -1,12 +1,20 @@
 import './SearchForm.css';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Switch from '../Switch/Switch.js';
 
-function SearchForm () {
+function SearchForm ({handleSearch}) {
+  const [pattern, setPattern] = useState('');
+  const [onlyShort, setOnlyShort] = useState(false);
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    setPattern(data.pattern);
+    handleSearch(data.pattern, onlyShort);
   };
+  const handleSwitch = () => {
+    handleSearch(pattern, !onlyShort);
+    setOnlyShort(!onlyShort);
+  }
   return (
     <div className="search-form">
       <form
@@ -18,18 +26,18 @@ function SearchForm () {
         <div className="search-form__icon"></div>
         <input
           className="search-form__input"
-          name="movie"
+          name="pattern"
           type="text"
           placeholder="Фильм"
-          {...register("movie", { required: true })} />
+          {...register("pattern", { required: true })} />
         <button type="submit" className="search-form__button">Найти</button>
         <div className="search-form__inline-switch" >
-          <Switch />
+          <Switch onlyShort={onlyShort} handleSwitch={handleSwitch} />
           <span className="search-form__switch-label">Короткометражки</span>
         </div>
       </form>
       <div className="search-form__bottom-switch" >
-        <Switch />
+        <Switch onlyShort={onlyShort} handleSwitch={handleSwitch} />
         <span className="search-form__switch-label">Короткометражки</span>
       </div>
     </div>

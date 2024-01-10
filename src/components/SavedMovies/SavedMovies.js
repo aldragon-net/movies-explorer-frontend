@@ -1,11 +1,15 @@
 import './SavedMovies.css';
 import { useState, useEffect } from 'react';
+// import Preloader from '../Preloader/Preloader.js';
 import SearchForm from '../SearchForm/SearchForm.js';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.js';
 import mainApi from '../../utils/MainApi.js';
 
 
 function SavedMovies ({handleMovieDelete}) {
+  // const [searchPattern, setSearchPattern] = useState('');
+  // const [displayPreloader, setDisplayPreloader] = useState(false);
+  // const [searchOnlyShort, setSearchOnlyShort] = useState(false);
   const [moviesSavedByUser, setMoviesSavedByUser ] = useState([])
   const [savedIds, setSavedIds ] = useState([])
   const onDelete = (movie, onSuccess, onFail) => {
