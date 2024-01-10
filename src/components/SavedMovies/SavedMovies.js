@@ -22,6 +22,7 @@ function SavedMovies ({handleMovieDelete}) {
       },
       onFail)
   }
+  const handleSearch = () => {}
   useEffect(() => {
     mainApi.getMovies()
       .then((movies) => {
@@ -32,7 +33,7 @@ function SavedMovies ({handleMovieDelete}) {
     }, []);
   return (
     <main className="saved-movies">
-      <SearchForm />
+      <SearchForm handleSearch={handleSearch} />
       <MoviesCardList
         movies={moviesSavedByUser}
         savedIds={savedIds}

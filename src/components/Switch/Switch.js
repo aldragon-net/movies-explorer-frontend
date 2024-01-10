@@ -6,7 +6,7 @@ function Switch ({onlyShort, handleSwitch}) {
       <input
         type="checkbox"
         checked={onlyShort}
-        onChange={handleSwitch} />
+        onClick={handleSwitch} />
       <span className="switch__slider" />
     </label>
   )

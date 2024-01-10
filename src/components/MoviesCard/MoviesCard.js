@@ -1,8 +1,11 @@
 import './MoviesCard.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function MoviesCard ({ movie, handleMovieSave, handleMovieDelete, inSaved, showSavedByUser=false }) {
-  const [isSaved, setIsSaved] = useState(inSaved);
+  const [isSaved, setIsSaved] = useState(false);
+  useEffect(() => {
+    setIsSaved(inSaved)
+    }, [inSaved]);
   const onSuccess = () => {
     setIsSaved(!isSaved)
   }

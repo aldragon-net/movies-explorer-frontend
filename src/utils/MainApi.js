@@ -86,6 +86,7 @@ class MainApi {
       this._moviesEndpoint,
       {
         method: 'GET',
+        headers: {'Cache-Control': 'no-cache'}
       }
     )
   }

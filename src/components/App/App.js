@@ -95,7 +95,6 @@ function App() {
     mainApi.getMovies()
       .then((movies) => {
         const movieToDelete = movies.find(movie => movie.movieId === movieData.movieId);
-        console.log(movieToDelete);
         return movieToDelete
       })
       .then((movie) => {

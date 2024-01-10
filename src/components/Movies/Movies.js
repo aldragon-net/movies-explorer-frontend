@@ -10,39 +10,62 @@ import { useState, useEffect } from 'react';
 
 function Movies ({handleMovieSave, handleMovieDelete}) {
 
-  const [searchPattern, setSearchPattern] = useState('');
-  const [displayPreloader, setDisplayPreloader] = useState(false);
-  const [searchOnlyShort, setSearchOnlyShort] = useState(false);
+  const stashedPattern = localStorage.getItem("pattern") ? JSON.parse(localStorage.getItem("pattern")) : '';
+  const stashedSwitchState = localStorage.getItem("onlyShort") ? JSON.parse(localStorage.getItem("onlyShort")) : false;
+  const stashedMovies = localStorage.getItem("moviesToShow") ? JSON.parse(localStorage.getItem("moviesToShow")) : [];
+  const [moviesToShow, setMoviesToShow] = useState(stashedMovies);
+  const [searchPattern, setSearchPattern] = useState(stashedPattern);
+  const [searchOnlyShort, setSearchOnlyShort] = useState(stashedSwitchState);
 
-  const [message, setMessage] = useState('');
-  const [moviesToShow, setMoviesToShow] = useState([]);
+  const [numberOfMoviesToDisplay, setNumberOfMoviesToDisplay] = useState(6);
+  const [displayedMovies, setDisplayedMovies] = useState([]);
   const [savedIds, setSavedIds] = useState([]);
+  const [displayPreloader, setDisplayPreloader] = useState(false);
+  const [message, setMessage] = useState('');
+
   const handleSearch = (pattern, onlyShort) => {
     setSearchPattern(pattern);
+    localStorage.setItem("pattern", JSON.stringify(pattern));
     setSearchOnlyShort(onlyShort);
+    localStorage.setItem("onlyShort", JSON.stringify(onlyShort));
+  };
+
+  const incrementMovies = () => {
+    setNumberOfMoviesToDisplay(numberOfMoviesToDisplay + 3)
+  }
+
+  const getMoviesBase = () => {
+    if (localStorage.getItem("moviesBase")) {
+      return Promise.resolve(JSON.parse(localStorage.getItem("moviesBase")))
+    } else {
+      return moviesApi.getMovies().then(
+        (movies) => {
+          const convertedMovies = movies.map((movie) => converter(movie));
+          return convertedMovies
+        })
+        .then((movies) => {
+          localStorage.setItem("moviesBase", JSON.stringify(movies));
+          return movies
+        })
+    }
   };
 
   useEffect(() => {
-    setMoviesToShow([]);
     setMessage('');
     if (searchPattern) {
       setDisplayPreloader(true);
-      moviesApi.getMovies()
-      .then((movies) => {
-        const convertedMovies = movies.map((movie) => converter(movie));
-        return convertedMovies
-      })
-      .then((movies) => {
-        localStorage.setItem("movies", JSON.stringify(movies));
-        const filteredMovies = movies.filter((movie) => movie.nameRU.includes(searchPattern) && (!searchOnlyShort || movie.duration <= 40));
-        return filteredMovies
-      })
-      .then((movies) => {
-        setMoviesToShow(movies);
-        setMessage(movies.length > 0 ? '' : 'Ничего не найдено!')
-      })
-      .catch((err) => {setMessage(`Ошибка связи с сервером: ${err.status}`)})
-      .finally(() => setDisplayPreloader(false));
+      getMoviesBase()
+        .then((movies) => {
+          const filteredMovies = movies.filter((movie) => movie.nameRU.includes(searchPattern) && (!searchOnlyShort || movie.duration <= 40));
+          return filteredMovies
+        })
+        .then((movies) => {
+          setMoviesToShow(movies);
+          localStorage.setItem("moviesToShow", JSON.stringify(movies));
+          setMessage(movies.length > 0 ? '' : 'Ничего не найдено!')
+        })
+        .catch((err) => {setMessage(`Ошибка связи с сервером: ${err.status}`)})
+        .finally(() => setDisplayPreloader(false));
     }
   }, [searchPattern, searchOnlyShort])
 
@@ -52,11 +75,15 @@ function Movies ({handleMovieSave, handleMovieDelete}) {
         setSavedIds(movies.map((movie) => movie.movieId));
       })
       .catch((err) => {setMessage(`Ошибка связи с сервером: ${err.status}`)})
-    }, []);
+    }, [moviesToShow]);
+
+  useEffect(() => {
+    setDisplayedMovies(moviesToShow.slice(0, numberOfMoviesToDisplay))
+    }, [moviesToShow, numberOfMoviesToDisplay]);
 
   return (
     <main className="movies">
-      <SearchForm handleSearch={handleSearch} />
+      <SearchForm handleSearch={handleSearch} switchState={searchOnlyShort} value={searchPattern} />
       {displayPreloader && <Preloader />}
       {message &&
         <p className='movies__message'>{message}</p>
@@ -64,11 +91,11 @@ function Movies ({handleMovieSave, handleMovieDelete}) {
       {moviesToShow.length > 0 &&
         <>
         <MoviesCardList
-          movies={moviesToShow}
+          movies={displayedMovies}
           savedIds={savedIds}
           handleMovieSave={handleMovieSave}
           handleMovieDelete={handleMovieDelete} />
-        <button className="movies__button" type="button">Ещё</button>
+        <button className="movies__button" type="button" onClick={incrementMovies}>Ещё</button>
       </>}
     </main>
   )
