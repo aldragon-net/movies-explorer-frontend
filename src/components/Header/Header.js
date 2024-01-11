@@ -1,16 +1,18 @@
 import './Header.css';
-import headerLogo from '../../images/logos/logo_circle.svg';
-import Navigation from '../Navigation/Navigation.js';
 import { useState } from 'react';
 import { useMatch, NavLink } from 'react-router-dom';
 import MobileMenu from '../MobileMenu/MobileMenu.js';
+import Navigation from '../Navigation/Navigation.js';
+import headerLogo from '../../images/logos/logo_circle.svg';
 
 function Header ({isAuthorized}) {
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const handleMobileMenuSwitch = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   }
   const isLanding = useMatch("/");
+
   return (
       <header className={`header ${isLanding && 'header_color_pink'}`}>
         <MobileMenu isOpen={isMobileMenuOpen} onClose={handleMobileMenuSwitch} />

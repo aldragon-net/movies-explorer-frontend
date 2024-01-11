@@ -1,8 +1,9 @@
 import './Techs.css';
 
-const techs = ['HTML', 'CSS', 'JS', 'React', 'Git', 'Express.js', 'mongoDB'];
-
 function Techs () {
+
+  const techs = ['HTML', 'CSS', 'JS', 'React', 'Git', 'Express.js', 'mongoDB'];
+
   return (
     <section id="techs" className="techs">
       <div className="techs__content">

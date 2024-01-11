@@ -4,18 +4,22 @@ import { useForm } from 'react-hook-form';
 import Switch from '../Switch/Switch.js';
 
 function SearchForm ({handleSearch, switchState=false, value='' }) {
+
   const [pattern, setPattern] = useState(value);
   const [onlyShort, setOnlyShort] = useState(switchState);
   const { register, handleSubmit, formState } = useForm({defaultValues: {pattern: value}});
+
   const onSubmit = (data) => {
     setPattern(data.pattern);
   };
   const handleSwitch = () => {
     setOnlyShort(!onlyShort);
   }
+
   useEffect(() => {
     handleSearch(pattern, onlyShort);
     }, [onlyShort, pattern, handleSearch]);
+
   return (
     <div className="search-form">
       <form

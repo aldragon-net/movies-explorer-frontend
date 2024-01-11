@@ -10,3 +10,8 @@
   text-align: center;
   color: #aaaaaa;
 }
+@media screen and (max-width: 550px) {
+  .saved-movies__message {
+    font-size: 16px;
+  }
+}

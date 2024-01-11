@@ -1,5 +1,4 @@
 import './Profile.css';
-import '../Form/Form.css';
 import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
@@ -8,18 +7,17 @@ import { nameValidationSchema, emailValidationSchema } from '../../utils/validat
 function Profile ({onUpdate, onLogout, errorMessage}) {
 
   const user = useContext(CurrentUserContext);
-
   const [isEdited, setIsEdited] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
-  const { register, handleSubmit, formState } = useForm({mode: "onChange", defaultValues: {name: user.name, email: user.email}});
+  const { register, handleSubmit, formState } = useForm(
+    {mode: "onChange", defaultValues: {name: user.name, email: user.email}}
+  );
 
   const onSuccess = () => {
     setIsEdited(false);
     setSuccessMessage('Данные профиля успешно изменены');
   }
-
   const onSubmit = (data) => {
-    console.log('обновление', data);
     onUpdate(data, onSuccess);
   }
   const handleEdit = () => {
@@ -55,22 +53,21 @@ function Profile ({onUpdate, onLogout, errorMessage}) {
         <p className={`profile__message ${errorMessage && "profile__error"}`}>
           {errorMessage}{successMessage}
         </p>
-      {!isEdited ?
-        <>
-          <p className="profile__edit" onClick={handleEdit}>Редактировать</p>
-          <p className="profile__logout" onClick={onLogout}>Выйти из аккаунта</p>
-        </>
-      :
-        <button
-          className={
-            `profile__button
-             ${(Object.keys(formState.errors).length > 0 || !formState.isDirty) && 'profile__button_inactive'}`
-          }
-          type="submit">
-          Сохранить
-        </button>
-      }
-
+        {!isEdited
+          ?
+            <>
+              <p className="profile__edit" onClick={handleEdit}>Редактировать</p>
+              <p className="profile__logout" onClick={onLogout}>Выйти из аккаунта</p>
+            </>
+          :
+            <button
+              className={
+                `profile__button
+                ${(Object.keys(formState.errors).length > 0 || !formState.isDirty) && 'profile__button_inactive'}`
+              }
+              type="submit">
+              Сохранить
+            </button>}
       </form>
     </main>
   );

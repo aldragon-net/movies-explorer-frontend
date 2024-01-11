@@ -1,9 +1,10 @@
-export const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,}$/gi;
+const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,}$/gi;
+const nameRegex = /^[А-ЯA-Zё\s-]+$/i;
 
 export const nameValidationSchema = {
   required: "Введите имя",
   pattern: {
-    value: /^[А-ЯA-Zё\s-]+$/i,
+    value: nameRegex,
     message: "Только латиница, кириллица, дефис и пробел"
   },
   minLength: {

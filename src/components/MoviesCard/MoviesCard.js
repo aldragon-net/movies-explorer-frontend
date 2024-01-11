@@ -3,15 +3,16 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function MoviesCard ({ movie, handleMovieSave, handleMovieDelete, inSaved, showSavedByUser=false }) {
+
+  const minutes = movie.duration % 60;
+  const hours = (movie.duration - minutes ) / 60;
   const [isSaved, setIsSaved] = useState(false);
-  useEffect(() => {
-    setIsSaved(inSaved)
-    }, [inSaved]);
+
   const onSuccess = () => {
     setIsSaved(!isSaved)
   }
   const onFail = () => {
-    console.log('Произошла ошибка')
+    console.log('Ошибка обработки фильма')
   }
   const onSave = () => {
     handleMovieSave(movie, onSuccess, onFail);
@@ -19,8 +20,11 @@ function MoviesCard ({ movie, handleMovieSave, handleMovieDelete, inSaved, showS
   const onUnsave = () => {
     handleMovieDelete(movie, onSuccess, onFail)
   }
-  const minutes = movie.duration % 60;
-  const hours = (movie.duration - minutes ) / 60;
+
+  useEffect(() => {
+    setIsSaved(inSaved)
+    }, [inSaved]);
+
   return (
     <div className="movies-card">
       <Link to={movie.trailerLink} target='_blank'>
@@ -34,20 +38,19 @@ function MoviesCard ({ movie, handleMovieSave, handleMovieDelete, inSaved, showS
         <span className="movies-card__duration">{ hours > 0 ? `${hours}ч ${minutes}м` : `${minutes}м`}</span>
       </div>
       {showSavedByUser
-       ?
-       <button
-        className="movies-card__unsave-icon"
-        type="button"
-        aria-label="сохранить"
-        onClick={onUnsave} />
-       :
-       <button
-          className={isSaved ? "movies-card__saved-icon" : "movies-card__save-icon"}
-          type="button"
-          aria-label="сохранить"
-          onClick={isSaved ? onUnsave : onSave} />}
+        ?
+          <button
+            className="movies-card__unsave-icon"
+            type="button"
+            aria-label="сохранить"
+            onClick={onUnsave} />
+        :
+          <button
+              className={isSaved ? "movies-card__saved-icon" : "movies-card__save-icon"}
+              type="button"
+              aria-label="сохранить"
+              onClick={isSaved ? onUnsave : onSave} />}
     </div>
-
   )
 }
 

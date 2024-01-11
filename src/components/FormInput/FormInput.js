@@ -1,7 +1,6 @@
 import './FormInput.css';
 
 function FormInput ({ name, label, register, errors, type, validationSchema }) {
-  console.log(errors)
   return (
     <>
       <label className="form-input__label">{label}</label>

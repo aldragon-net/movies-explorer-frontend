@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import './App.css';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
 import Header from '../Header/Header.js';
 import Main from '../Main/Main.js';
 import Footer from '../Footer/Footer.js';
@@ -11,13 +12,13 @@ import Profile from '../Profile/Profile.js';
 import Login from '../Login/Login.js';
 import Register from '../Register/Register.js';
 import NotFound from '../NotFound/NotFound.js';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import mainApi from '../../utils/MainApi.js';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import { errorStatusToMessage } from '../../utils/messages.js';
 
 
 function App() {
+
   const navigate = useNavigate();
   const [ isAuthorized, setIsAuthorized ] = useState(false);
   const [ currentUser, setCurrentUser ] = useState({name: '', email: ''});
@@ -31,6 +32,7 @@ function App() {
       })
       .catch((err) => {
         setCurrentUser({name: '', email: ''});
+        setFormErrorMessage(errorStatusToMessage.profileUpdate[err.status])
       })
     }, [isAuthorized]);
 
@@ -42,7 +44,6 @@ function App() {
       .catch((err) => {
         setFormErrorMessage(errorStatusToMessage.registration[err.status])
       })
-      .finally(() => {})
   }
 
   const handleProfileUpdate = (userData, onSuccess) => {
@@ -55,12 +56,11 @@ function App() {
       .catch((err) => {
         setFormErrorMessage(errorStatusToMessage.profileUpdate[err.status])
       })
-      .finally(() => {})
   }
 
   const handleLogin = (userData) => {
     mainApi.login({email: userData.email, password: userData.password})
-      .then((res) => {
+      .then(() => {
         setIsAuthorized(true);
         navigate('/movies', {replace: true});
         setFormErrorMessage('');
@@ -68,28 +68,27 @@ function App() {
       .catch((err) => {
         setFormErrorMessage(errorStatusToMessage.login[err.status])
       })
-      .finally(() => {})
   }
 
   const handleLogout = () => {
     mainApi.logout()
-      .then((res) => {
+      .then(() => {
         setIsAuthorized(false);
         localStorage.clear();
         navigate('/', {replace: true});
       })
       .catch((err) => {
-        setFormErrorMessage(err.status)
+        setFormErrorMessage(errorStatusToMessage.default[err.status])
       })
   }
 
   const handleMovieSave = (movieData, onSuccess, OnFail) => {
     mainApi.saveMovie(movieData)
       .then((res) => {
-        onSuccess();
+        onSuccess(res);
       })
       .catch((err) => {
-        OnFail();
+        OnFail(err);
       })
   }
   const handleMovieDelete = (movieData, onSuccess, OnFail) => {
@@ -101,14 +100,14 @@ function App() {
       .then((movie) => {
         mainApi.deleteMovie(movie._id)
           .then((res) => {
-            onSuccess();
+            onSuccess(res);
           })
           .catch((err) => {
-            OnFail();
+            OnFail(err);
           })
       })
       .catch((err) => {
-        OnFail();
+        OnFail(err);
       })
   }
 

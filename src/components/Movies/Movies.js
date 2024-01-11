@@ -1,4 +1,5 @@
 import './Movies.css';
+import { useState, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm.js';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.js';
 import Preloader from '../Preloader/Preloader.js';
@@ -7,7 +8,7 @@ import mainApi from '../../utils/MainApi.js';
 import converter from '../../utils/converter.js';
 import filterMovies from '../../utils/filter.js';
 
-import { useState, useEffect } from 'react';
+
 
 function Movies ({handleMovieSave, handleMovieDelete}) {
 
@@ -104,25 +105,23 @@ function Movies ({handleMovieSave, handleMovieDelete}) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-
   return (
     <main className="movies">
       <SearchForm handleSearch={handleSearch} switchState={searchOnlyShort} value={searchPattern} />
       {displayPreloader && <Preloader />}
-      {message &&
-        <p className='movies__message'>{message}</p>
-      }
+      {message && <p className='movies__message'>{message}</p>}
       {moviesToShow.length > 0 &&
         <>
-        <MoviesCardList
-          movies={displayedMovies}
-          savedIds={savedIds}
-          handleMovieSave={handleMovieSave}
-          handleMovieDelete={handleMovieDelete} />
-       {moviesToShow.length > numberOfMoviesToDisplay &&
-        <button className="movies__button" type="button" onClick={incrementMovies}>Ещё</button>
-       }
-      </>}
+          <MoviesCardList
+            movies={displayedMovies}
+            savedIds={savedIds}
+            handleMovieSave={handleMovieSave}
+            handleMovieDelete={handleMovieDelete} />
+          {moviesToShow.length > numberOfMoviesToDisplay &&
+            <button className="movies__button" type="button" onClick={incrementMovies}>Ещё</button>
+          }
+        </>
+      }
     </main>
   )
 }

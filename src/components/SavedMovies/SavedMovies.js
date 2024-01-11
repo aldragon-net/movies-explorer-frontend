@@ -8,6 +8,7 @@ import filterMovies from '../../utils/filter.js';
 
 
 function SavedMovies ({handleMovieDelete}) {
+
   const [searchPattern, setSearchPattern] = useState('');
   const [displayPreloader, setDisplayPreloader] = useState(false);
   const [searchOnlyShort, setSearchOnlyShort] = useState(false);
@@ -45,7 +46,7 @@ function SavedMovies ({handleMovieDelete}) {
   useEffect(() => {
     const filteredMovies = filterMovies(moviesSavedByUser, searchPattern, searchOnlyShort)
     setMoviesToShow(filteredMovies)
-    setMessage((!searchPattern || filteredMovies.length > 0) ? '' : 'Ничего не найдено!')
+    setMessage(((!searchPattern && !searchOnlyShort) || filteredMovies.length > 0) ? '' : 'Ничего не найдено!')
   }, [moviesSavedByUser, searchPattern, searchOnlyShort])
 
   return (
@@ -59,7 +60,7 @@ function SavedMovies ({handleMovieDelete}) {
         movies={moviesToShow}
         savedIds={savedIds}
         showSavedByUser={true}
-        handleMovieDelete={onDelete}/>
+        handleMovieDelete={onDelete} />
     </main>
   )
 }

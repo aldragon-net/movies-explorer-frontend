@@ -15,16 +15,16 @@ function Form ({ name, title, inputs, onSubmit, buttonText, altText, altLink, al
       <Link to="/"><div className="form__logo"></div></Link>
       <h2 className="form__heading">{title}</h2>
       <div className="form__input-area">
-      {inputs.map((input, i) => (
-        <FormInput
-          key={input.name}
-          name={input.name}
-          label={input.label}
-          type={input.type}
-          register={register}
-          errors={formState.errors}
-          validationSchema={input.validationSchema} />
-      ))}
+        {inputs.map((input, i) => (
+          <FormInput
+            key={input.name}
+            name={input.name}
+            label={input.label}
+            type={input.type}
+            register={register}
+            errors={formState.errors}
+            validationSchema={input.validationSchema} />
+        ))}
       </div>
       <span className="form__response-error">{errorMessage}</span>
       <button

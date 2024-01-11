@@ -1,5 +1,5 @@
 import './Register.css';
-import Form from '../Form/Form';
+import Form from '../Form/Form.js';
 import {
   nameValidationSchema,
   emailValidationSchema,
@@ -29,7 +29,6 @@ function Register ({onRegister, errorMessage}) {
   ]
 
   const onSubmit = (data) => {
-    console.log(data);
     onRegister(data);
   };
 

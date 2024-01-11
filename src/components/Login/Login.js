@@ -1,9 +1,9 @@
 import './Login.css';
-import '../Form/Form.css';
-import Form from '../Form/Form';
+import Form from '../Form/Form.js';
 import { emailValidationSchema } from '../../utils/validation.js';
 
 function Login ({onLogin, errorMessage}) {
+
   const onSubmit = (data) => {
     onLogin(data);
   };
@@ -21,6 +21,7 @@ function Login ({onLogin, errorMessage}) {
       validationSchema: { required: "Введите пароль" }
     },
   ]
+
   return (
     <main className="login">
       <Form
