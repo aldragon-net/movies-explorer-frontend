@@ -36,6 +36,20 @@ function Movies ({handleMovieSave, handleMovieDelete}) {
   const incrementMovies = () => {
     setNumberOfMoviesToDisplay(numberOfMoviesToDisplay + increment)
   }
+  const changeDisplayMode = () => {
+    const w = window.innerWidth;
+    if (w >= 1040) {
+      setNumberOfMoviesToDisplay(12);
+      setIncrement(3);
+    } else {
+      setIncrement(2);
+      if (w >= 666) {
+        setNumberOfMoviesToDisplay(8);
+      } else {
+        setNumberOfMoviesToDisplay(5);
+      }
+    }
+  }
 
   const getMoviesBase = () => {
     if (localStorage.getItem("moviesBase")) {
@@ -62,6 +76,7 @@ function Movies ({handleMovieSave, handleMovieDelete}) {
         .then((movies) => {
           setMoviesToShow(movies);
           localStorage.setItem("moviesToShow", JSON.stringify(movies));
+          changeDisplayMode();
           setMessage(movies.length > 0 ? '' : 'Ничего не найдено!')
         })
         .catch((err) => {setMessage(`Ошибка связи с сервером: ${err.status}`)})
@@ -83,23 +98,9 @@ function Movies ({handleMovieSave, handleMovieDelete}) {
 
   useEffect(() => {
     let timer;
-    function changeIncrement () {
-      const w = window.innerWidth;
-      if (w >= 1040) {
-        setNumberOfMoviesToDisplay(12);
-        setIncrement(3);
-      } else {
-        setIncrement(2);
-        if (w >= 666) {
-          setNumberOfMoviesToDisplay(8);
-        } else {
-          setNumberOfMoviesToDisplay(5);
-        }
-      }
-    }
     function handleResize () {
       clearTimeout(timer);
-      timer = setTimeout(changeIncrement, 500);
+      timer = setTimeout(changeDisplayMode, 500);
     }
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
