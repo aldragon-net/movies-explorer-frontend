@@ -14,6 +14,7 @@ import NotFound from '../NotFound/NotFound.js';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import mainApi from '../../utils/MainApi.js';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
+import { errorStatusToMessage } from '../../utils/messages.js';
 
 
 function App() {
@@ -28,18 +29,18 @@ function App() {
         setIsAuthorized(true);
         setCurrentUser({name: res.name, email: res.email});
       })
-      .catch((err) => {setCurrentUser({name: '', email: ''})})
+      .catch((err) => {
+        setCurrentUser({name: '', email: ''});
+      })
     }, [isAuthorized]);
 
   const handleRegistration = (userData) => {
     mainApi.register({name: userData.name, email: userData.email, password: userData.password})
-      .then((res) => {
-        setIsAuthorized(true);
-        navigate('/movies', {replace: true});
-        setFormErrorMessage('');
+      .then(() => {
+        handleLogin({email: userData.email, password: userData.password})
       })
       .catch((err) => {
-        setFormErrorMessage(err.status)
+        setFormErrorMessage(errorStatusToMessage.registration[err.status])
       })
       .finally(() => {})
   }
@@ -52,7 +53,7 @@ function App() {
         onSuccess();
       })
       .catch((err) => {
-        setFormErrorMessage(err.status)
+        setFormErrorMessage(errorStatusToMessage.profileUpdate[err.status])
       })
       .finally(() => {})
   }
@@ -65,7 +66,7 @@ function App() {
         setFormErrorMessage('');
       })
       .catch((err) => {
-        setFormErrorMessage(err.status)
+        setFormErrorMessage(errorStatusToMessage.login[err.status])
       })
       .finally(() => {})
   }

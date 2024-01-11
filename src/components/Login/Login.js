@@ -11,7 +11,7 @@ function Login ({onLogin, errorMessage}) {
     {
       name: "email",
       label: "Email",
-      type: "email",
+      type: "text",
       validationSchema: emailValidationSchema
     },
     {

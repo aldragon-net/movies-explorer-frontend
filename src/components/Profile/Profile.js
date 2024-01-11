@@ -46,7 +46,7 @@ function Profile ({onUpdate, onLogout, errorMessage}) {
           <label className="profile__label">Email</label>
           <input
             className={`profile__input ${!isEdited && 'profile__input_inactive'}`}
-            type="email"
+            type="text"
             {...register("email", emailValidationSchema)} />
         </div>
         <p className="profile__field-error">

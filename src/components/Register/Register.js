@@ -17,7 +17,7 @@ function Register ({onRegister, errorMessage}) {
     {
       name: "email",
       label: "Email",
-      type: "email",
+      type: "text",
       validationSchema: emailValidationSchema
     },
     {

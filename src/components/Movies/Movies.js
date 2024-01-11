@@ -5,6 +5,7 @@ import Preloader from '../Preloader/Preloader.js';
 import moviesApi from '../../utils/MoviesApi.js';
 import mainApi from '../../utils/MainApi.js';
 import converter from '../../utils/converter.js';
+import filterMovies from '../../utils/filter.js';
 
 import { useState, useEffect } from 'react';
 
@@ -55,10 +56,7 @@ function Movies ({handleMovieSave, handleMovieDelete}) {
     if (searchPattern) {
       setDisplayPreloader(true);
       getMoviesBase()
-        .then((movies) => {
-          const filteredMovies = movies.filter((movie) => movie.nameRU.includes(searchPattern) && (!searchOnlyShort || movie.duration <= 40));
-          return filteredMovies
-        })
+        .then((movies) => filterMovies(movies, searchPattern, searchOnlyShort))
         .then((movies) => {
           setMoviesToShow(movies);
           localStorage.setItem("moviesToShow", JSON.stringify(movies));
