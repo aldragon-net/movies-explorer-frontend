@@ -2,9 +2,6 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
 function MoviesCardList ({ movies, savedIds, showSavedByUser, handleMovieSave, handleMovieDelete }) {
-  console.log('сохраненные', savedIds)
-  const moviesIds = movies.map((movie) => ({id: movie.movieId, in: savedIds.includes(movie.movieId)}))
-  console.log('ID фильмов', moviesIds)
   return (
     <ul className="movies-card-list">
       {movies.map((movie, i) => (

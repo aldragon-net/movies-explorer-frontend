@@ -6,17 +6,16 @@ import Switch from '../Switch/Switch.js';
 function SearchForm ({handleSearch, switchState=false, value='' }) {
   const [pattern, setPattern] = useState(value);
   const [onlyShort, setOnlyShort] = useState(switchState);
-  const { register, handleSubmit } = useForm({defaultValues: {pattern: value}});
+  const { register, handleSubmit, formState } = useForm({defaultValues: {pattern: value}});
   const onSubmit = (data) => {
     setPattern(data.pattern);
-    handleSearch(data.pattern, onlyShort);
   };
   const handleSwitch = () => {
     setOnlyShort(!onlyShort);
   }
   useEffect(() => {
     handleSearch(pattern, onlyShort);
-    }, [onlyShort, handleSubmit, onlyShort]);
+    }, [onlyShort, pattern, handleSearch]);
   return (
     <div className="search-form">
       <form
@@ -30,8 +29,8 @@ function SearchForm ({handleSearch, switchState=false, value='' }) {
           className="search-form__input"
           name="pattern"
           type="text"
-          placeholder="Фильм"
-          {...register("pattern", { required: true }, )} />
+          placeholder={Object.keys(formState.errors).length > 0 ? "Введите название фильма" : "Фильм"}
+          {...register("pattern", { required: true})} />
         <button type="submit" className="search-form__button">Найти</button>
         <div className="search-form__inline-switch" >
           <Switch onlyShort={onlyShort} handleSwitch={handleSwitch} />

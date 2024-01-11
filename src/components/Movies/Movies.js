@@ -19,6 +19,7 @@ function Movies ({handleMovieSave, handleMovieDelete}) {
   const [searchOnlyShort, setSearchOnlyShort] = useState(stashedSwitchState);
 
   const [numberOfMoviesToDisplay, setNumberOfMoviesToDisplay] = useState(6);
+  const [increment, setIncrement] = useState(3);
   const [displayedMovies, setDisplayedMovies] = useState([]);
   const [savedIds, setSavedIds] = useState([]);
   const [displayPreloader, setDisplayPreloader] = useState(false);
@@ -32,7 +33,7 @@ function Movies ({handleMovieSave, handleMovieDelete}) {
   };
 
   const incrementMovies = () => {
-    setNumberOfMoviesToDisplay(numberOfMoviesToDisplay + 3)
+    setNumberOfMoviesToDisplay(numberOfMoviesToDisplay + increment)
   }
 
   const getMoviesBase = () => {
@@ -79,6 +80,31 @@ function Movies ({handleMovieSave, handleMovieDelete}) {
     setDisplayedMovies(moviesToShow.slice(0, numberOfMoviesToDisplay))
     }, [moviesToShow, numberOfMoviesToDisplay]);
 
+  useEffect(() => {
+    let timer;
+    function changeIncrement () {
+      const w = window.innerWidth;
+      if (w >= 1040) {
+        setNumberOfMoviesToDisplay(12);
+        setIncrement(3);
+      } else {
+        setIncrement(2);
+        if (w >= 666) {
+          setNumberOfMoviesToDisplay(8);
+        } else {
+          setNumberOfMoviesToDisplay(5);
+        }
+      }
+    }
+    function handleResize () {
+      clearTimeout(timer);
+      timer = setTimeout(changeIncrement, 500);
+    }
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
   return (
     <main className="movies">
       <SearchForm handleSearch={handleSearch} switchState={searchOnlyShort} value={searchPattern} />
@@ -93,7 +119,9 @@ function Movies ({handleMovieSave, handleMovieDelete}) {
           savedIds={savedIds}
           handleMovieSave={handleMovieSave}
           handleMovieDelete={handleMovieDelete} />
+       {moviesToShow.length > numberOfMoviesToDisplay &&
         <button className="movies__button" type="button" onClick={incrementMovies}>Ещё</button>
+       }
       </>}
     </main>
   )

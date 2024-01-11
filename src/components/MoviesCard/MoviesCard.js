@@ -1,5 +1,6 @@
 import './MoviesCard.css';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function MoviesCard ({ movie, handleMovieSave, handleMovieDelete, inSaved, showSavedByUser=false }) {
   const [isSaved, setIsSaved] = useState(false);
@@ -10,7 +11,7 @@ function MoviesCard ({ movie, handleMovieSave, handleMovieDelete, inSaved, showS
     setIsSaved(!isSaved)
   }
   const onFail = () => {
-    console.log('FAIl')
+    console.log('Произошла ошибка')
   }
   const onSave = () => {
     handleMovieSave(movie, onSuccess, onFail);
@@ -22,27 +23,29 @@ function MoviesCard ({ movie, handleMovieSave, handleMovieDelete, inSaved, showS
   const hours = (movie.duration - minutes ) / 60;
   return (
     <div className="movies-card">
-      <img
-        className="movies-card__image"
-        src={movie.image}
-        alt={movie.nameRu} />
+      <Link to={movie.trailerLink} target='_blank'>
+        <img
+          className="movies-card__image"
+          src={movie.image}
+          alt={movie.nameRu} />
+      </Link>
       <div className="movies-card__info">
         <span className="movies-card__title">{movie.nameRU}</span>
         <span className="movies-card__duration">{ hours > 0 ? `${hours}ч ${minutes}м` : `${minutes}м`}</span>
       </div>
       {showSavedByUser
-       ?        <button
-       className="movies-card__unsave-icon"
-       type="button"
-       aria-label="сохранить"
-       onClick={onUnsave} />
+       ?
+       <button
+        className="movies-card__unsave-icon"
+        type="button"
+        aria-label="сохранить"
+        onClick={onUnsave} />
        :
        <button
-           className={isSaved ? "movies-card__saved-icon" : "movies-card__save-icon"}
-           type="button"
-           aria-label="сохранить"
-           onClick={isSaved ? onUnsave : onSave} />}
-
+          className={isSaved ? "movies-card__saved-icon" : "movies-card__save-icon"}
+          type="button"
+          aria-label="сохранить"
+          onClick={isSaved ? onUnsave : onSave} />}
     </div>
 
   )

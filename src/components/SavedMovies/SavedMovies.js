@@ -45,7 +45,7 @@ function SavedMovies ({handleMovieDelete}) {
   useEffect(() => {
     const filteredMovies = filterMovies(moviesSavedByUser, searchPattern, searchOnlyShort)
     setMoviesToShow(filteredMovies)
-    setMessage(filteredMovies.length > 0 ? '' : 'Ничего не найдено!')
+    setMessage((!searchPattern || filteredMovies.length > 0) ? '' : 'Ничего не найдено!')
   }, [moviesSavedByUser, searchPattern, searchOnlyShort])
 
   return (
