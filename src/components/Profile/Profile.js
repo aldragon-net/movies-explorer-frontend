@@ -4,21 +4,26 @@ import { useForm } from 'react-hook-form';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import { nameValidationSchema, emailValidationSchema } from '../../utils/validation.js';
 
-function Profile ({onUpdate, onLogout, errorMessage}) {
+function Profile ({onUpdate, onLogout}) {
 
   const user = useContext(CurrentUserContext);
   const [isEdited, setIsEdited] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
-  const { register, handleSubmit, formState } = useForm(
+  const [errorMessage, setErrorMessage] = useState('');
+  const { register, handleSubmit, formState, watch } = useForm(
     {mode: "onChange", defaultValues: {name: user.name, email: user.email}}
   );
 
   const onSuccess = () => {
     setIsEdited(false);
+    setErrorMessage('');
     setSuccessMessage('Данные профиля успешно изменены');
   }
+  const onFail = (message) => {
+    setErrorMessage(message);
+  }
   const onSubmit = (data) => {
-    onUpdate(data, onSuccess);
+    onUpdate(data, onSuccess, onFail);
   }
   const handleEdit = () => {
     setSuccessMessage('');
@@ -63,11 +68,14 @@ function Profile ({onUpdate, onLogout, errorMessage}) {
             <button
               className={
                 `profile__button
-                ${(Object.keys(formState.errors).length > 0 || !formState.isDirty) && 'profile__button_inactive'}`
+                ${(!formState.isValid
+                    ||
+                   (watch("name") === user.name && watch("email") === user.email )
+                  ) && 'profile__button_inactive'}`
               }
               type="submit">
               Сохранить
-            </button>}
+            </button> }
       </form>
     </main>
   );

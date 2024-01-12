@@ -19,7 +19,13 @@ class MainApi {
         if (res.ok) {
           return res.json();
         }
-        return Promise.reject({ status: res.status, message: 'Ошибка запроса' })
+        return Promise.reject(res)
+      })
+      .catch((err) => {
+        if (err.status) {
+          return Promise.reject({ status: err.status, message: 'Ошибка запроса' })
+        }
+        return Promise.reject({ status: 503, message: 'Не удалось установить соединение' })
       })
   }
 
@@ -46,19 +52,14 @@ class MainApi {
   }
 
   logout () {
-    return fetch(
+    return this._getResponseOrError(
       this._logoutEndpoint,
       {
         method: 'POST',
         credentials: 'include',
         headers: this._headers,
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          return res.json();
-        }
-        return Promise.reject({ status: res.status, message: res.json()})
-      })
+      }
+    )
   }
 
   getProfile () {

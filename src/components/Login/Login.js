@@ -1,12 +1,9 @@
 import './Login.css';
+import { useState } from 'react';
 import Form from '../Form/Form.js';
 import { emailValidationSchema } from '../../utils/validation.js';
 
-function Login ({onLogin, errorMessage}) {
-
-  const onSubmit = (data) => {
-    onLogin(data);
-  };
+function Login ({onLogin}) {
   const loginInputs = [
     {
       name: "email",
@@ -21,6 +18,15 @@ function Login ({onLogin, errorMessage}) {
       validationSchema: { required: "Введите пароль" }
     },
   ]
+
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const onFail = (message) => {
+    setErrorMessage(message);
+  }
+  const onSubmit = (data) => {
+    onLogin(data, onFail);
+  };
 
   return (
     <main className="login">

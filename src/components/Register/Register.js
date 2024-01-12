@@ -1,12 +1,13 @@
 import './Register.css';
 import Form from '../Form/Form.js';
+import { useState } from 'react';
 import {
   nameValidationSchema,
   emailValidationSchema,
   passwordValidationSchema
 } from '../../utils/validation.js';
 
-function Register ({onRegister, errorMessage}) {
+function Register ({onRegister}) {
   const registerInputs = [
     {
       name: "name",
@@ -28,8 +29,13 @@ function Register ({onRegister, errorMessage}) {
     },
   ]
 
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const onFail = (message) => {
+    setErrorMessage(message);
+  }
   const onSubmit = (data) => {
-    onRegister(data);
+    onRegister(data, onFail);
   };
 
   return (

@@ -1,10 +1,10 @@
 import './Form.css';
-import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import FormInput from '../FormInput/FormInput';
 
 function Form ({ name, title, inputs, onSubmit, buttonText, altText, altLink, altLinkText, errorMessage }) {
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState } = useForm({mode: "onChange"});
   return (
     <form
       className="form"
@@ -28,7 +28,7 @@ function Form ({ name, title, inputs, onSubmit, buttonText, altText, altLink, al
       </div>
       <span className="form__response-error">{errorMessage}</span>
       <button
-        className={`form__button ${Object.keys(formState.errors).length > 0 && "form__button_inactive"}`}
+        className={`form__button ${!formState.isValid && "form__button_inactive"}`}
         type="submit">
         {buttonText}
       </button>

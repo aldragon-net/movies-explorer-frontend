@@ -75,6 +75,11 @@
 .movies-card:hover .movies-card__save-icon {
   visibility: visible;
 }
+@media screen and (max-width: 666px) {
+  .movies-card__save-icon {
+    visibility: visible;
+  }
+}
 @media (hover: hover) {
   .movies-card__save-icon:hover {
     opacity: 0.8;
@@ -126,6 +131,11 @@
   }
 .movies-card:hover .movies-card__unsave-icon {
   visibility: visible;
+}
+@media screen and (max-width: 666px) {
+  .movies-card__unsave-icon {
+    visibility: visible;
+  }
 }
 .movies-card__unsave-icon:hover {
   opacity: 0.8;

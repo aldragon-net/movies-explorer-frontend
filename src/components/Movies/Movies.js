@@ -7,8 +7,7 @@ import moviesApi from '../../utils/MoviesApi.js';
 import mainApi from '../../utils/MainApi.js';
 import converter from '../../utils/converter.js';
 import filterMovies from '../../utils/filter.js';
-
-
+import { SCREEN, MOVIES, INCREMENT } from '../../utils/screen-config.js';
 
 function Movies ({handleMovieSave, handleMovieDelete}) {
 
@@ -38,15 +37,16 @@ function Movies ({handleMovieSave, handleMovieDelete}) {
   }
   const changeDisplayMode = () => {
     const w = window.innerWidth;
-    if (w >= 1040) {
-      setNumberOfMoviesToDisplay(12);
-      setIncrement(3);
+    if (w >= SCREEN.WIDE) {
+      setNumberOfMoviesToDisplay(MOVIES.WIDE);
+      setIncrement(INCREMENT.WIDE);
     } else {
-      setIncrement(2);
-      if (w >= 666) {
-        setNumberOfMoviesToDisplay(8);
+      if (w >= SCREEN.MEDIUM) {
+        setNumberOfMoviesToDisplay(MOVIES.MEDIUM);
+        setIncrement(INCREMENT.MEDIUM);
       } else {
-        setNumberOfMoviesToDisplay(5);
+        setNumberOfMoviesToDisplay(MOVIES.MOBILE);
+        setIncrement(INCREMENT.MOBILE);
       }
     }
   }

@@ -1,7 +1,6 @@
+import './App.css';
 import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-
-import './App.css';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
 import Header from '../Header/Header.js';
 import Main from '../Main/Main.js';
@@ -20,57 +19,56 @@ import { errorStatusToMessage } from '../../utils/messages.js';
 function App() {
 
   const navigate = useNavigate();
+  const [ authorizationCompleted, setAuthorizationCompleted ] = useState(false);
   const [ isAuthorized, setIsAuthorized ] = useState(false);
   const [ currentUser, setCurrentUser ] = useState({name: '', email: ''});
-  const [ formErrorMessage, setFormErrorMessage ] = useState('');
 
   useEffect(() => {
+    setAuthorizationCompleted(false);
     mainApi.getProfile()
       .then((res) => {
         setIsAuthorized(true);
         setCurrentUser({name: res.name, email: res.email});
       })
-      .catch((err) => {
+      .catch(() => {
         setCurrentUser({name: '', email: ''});
-        setFormErrorMessage(errorStatusToMessage.profileUpdate[err.status])
       })
+      .finally(() => setAuthorizationCompleted(true))
     }, [isAuthorized]);
 
-  const handleRegistration = (userData) => {
+  const handleRegistration = (userData, onFail) => {
     mainApi.register({name: userData.name, email: userData.email, password: userData.password})
       .then(() => {
-        handleLogin({email: userData.email, password: userData.password})
+        handleLogin({email: userData.email, password: userData.password}, onFail)
       })
       .catch((err) => {
-        setFormErrorMessage(errorStatusToMessage.registration[err.status])
+        onFail(errorStatusToMessage.registration[err.status])
       })
   }
 
-  const handleProfileUpdate = (userData, onSuccess) => {
+  const handleProfileUpdate = (userData, onSuccess, onFail) => {
     mainApi.updateProfile({name: userData.name, email: userData.email})
       .then((res) => {
         setCurrentUser({name: res.name, email: res.email});
-        setFormErrorMessage('');
         onSuccess();
       })
       .catch((err) => {
-        setFormErrorMessage(errorStatusToMessage.profileUpdate[err.status])
+        onFail(errorStatusToMessage.profileUpdate[err.status])
       })
   }
 
-  const handleLogin = (userData) => {
+  const handleLogin = (userData, onFail) => {
     mainApi.login({email: userData.email, password: userData.password})
       .then(() => {
         setIsAuthorized(true);
         navigate('/movies', {replace: true});
-        setFormErrorMessage('');
       })
       .catch((err) => {
-        setFormErrorMessage(errorStatusToMessage.login[err.status])
+        onFail(errorStatusToMessage.login[err.status])
       })
   }
 
-  const handleLogout = () => {
+  const handleLogout = (onFail) => {
     mainApi.logout()
       .then(() => {
         setIsAuthorized(false);
@@ -78,7 +76,7 @@ function App() {
         navigate('/', {replace: true});
       })
       .catch((err) => {
-        setFormErrorMessage(errorStatusToMessage.default[err.status])
+        onFail(errorStatusToMessage.default[err.status])
       })
   }
 
@@ -127,7 +125,7 @@ function App() {
           <Route
             path="/movies"
             element={
-              <ProtectedRoute isAuthorized={isAuthorized}>
+              <ProtectedRoute isReady={authorizationCompleted} isAuthorized={isAuthorized}>
                 <Header isAuthorized={isAuthorized} />
                 <Movies
                   handleMovieSave={handleMovieSave}
@@ -138,7 +136,7 @@ function App() {
           <Route
             path="/saved-movies"
             element={
-              <ProtectedRoute isAuthorized={isAuthorized}>
+              <ProtectedRoute isReady={authorizationCompleted} isAuthorized={isAuthorized}>
                 <Header isAuthorized={isAuthorized} />
                 <SavedMovies
                   handleMovieSave={handleMovieSave}
@@ -149,28 +147,39 @@ function App() {
           <Route
             path="/profile"
             element={
-              <ProtectedRoute isAuthorized={isAuthorized}>
+              <ProtectedRoute isReady={authorizationCompleted} isAuthorized={isAuthorized}>
                 <Header isAuthorized={isAuthorized}/>
                 <Profile
                   onUpdate={handleProfileUpdate}
-                  onLogout={handleLogout}
-                  errorMessage={formErrorMessage} />
+                  onLogout={handleLogout} />
               </ProtectedRoute>
             } />
           <Route
             path="/signin"
             element={
-              <Login onLogin={handleLogin} errorMessage={formErrorMessage} />
+              <ProtectedRoute
+                isReady={authorizationCompleted}
+                isAuthorized={isAuthorized}
+                rejectAuthorized={true}
+                redirectPath='/movies' >
+                <Login onLogin={handleLogin} />
+              </ProtectedRoute>
             } />
           <Route
             path="/signup"
             element={
-              <Register onRegister={handleRegistration} errorMessage={formErrorMessage} />
+              <ProtectedRoute
+                isReady={authorizationCompleted}
+                isAuthorized={isAuthorized}
+                rejectAuthorized={true}
+                redirectPath='/movies' >
+                <Register onRegister={handleRegistration} />
+              </ProtectedRoute>
             } />
           <Route
             path="*"
             element={
-              <ProtectedRoute isAuthorized={isAuthorized}>
+              <ProtectedRoute isReady={authorizationCompleted} isAuthorized={isAuthorized}>
                 <NotFound />
               </ProtectedRoute>
             } />

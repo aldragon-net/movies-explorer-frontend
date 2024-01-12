@@ -7,7 +7,8 @@ function SearchForm ({handleSearch, switchState=false, value='' }) {
 
   const [pattern, setPattern] = useState(value);
   const [onlyShort, setOnlyShort] = useState(switchState);
-  const { register, handleSubmit, formState } = useForm({defaultValues: {pattern: value}});
+  const { register, handleSubmit, formState } = useForm(
+    {defaultValues: {pattern: value}, reValidateMode: 'onSubmit'});
 
   const onSubmit = (data) => {
     setPattern(data.pattern);
@@ -28,19 +29,25 @@ function SearchForm ({handleSearch, switchState=false, value='' }) {
         name="search"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="search-form__icon"></div>
-        <input
-          className="search-form__input"
-          name="pattern"
-          type="text"
-          placeholder={Object.keys(formState.errors).length > 0 ? "Введите название фильма" : "Фильм"}
-          {...register("pattern", { required: true})} />
-        <button type="submit" className="search-form__button">Найти</button>
-        <div className="search-form__inline-switch" >
-          <Switch onlyShort={onlyShort} handleSwitch={handleSwitch} />
-          <span className="search-form__switch-label">Короткометражки</span>
+        <div className="search-form__line">
+          <div className="search-form__icon"></div>
+          <div className="search-form__input">
+            <input
+              className="search-form__input"
+              name="pattern"
+              type="text"
+              placeholder="Фильм"
+              {...register("pattern", { required: true})} />
+          </div>
+          <button type="submit" className="search-form__button">Найти</button>
+          <div className="search-form__inline-switch" >
+            <Switch onlyShort={onlyShort} handleSwitch={handleSwitch} />
+            <span className="search-form__switch-label">Короткометражки</span>
+          </div>
         </div>
+        <p className='search-form__error'>{Object.keys(formState.errors).length > 0 ? "Нужно ввести ключевое слово" : ""}</p>
       </form>
+
       <div className="search-form__bottom-switch" >
         <Switch onlyShort={onlyShort} handleSwitch={handleSwitch} />
         <span className="search-form__switch-label">Короткометражки</span>
