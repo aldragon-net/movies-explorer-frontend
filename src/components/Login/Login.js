@@ -1,25 +1,33 @@
 import './Login.css';
-import '../Form/Form.css';
-import Form from '../Form/Form';
+import { useState } from 'react';
+import Form from '../Form/Form.js';
+import { emailValidationSchema } from '../../utils/validation.js';
 
-function Login () {
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+function Login ({onLogin}) {
   const loginInputs = [
     {
-      name: "login-email",
+      name: "email",
       label: "Email",
-      type: "email",
-      validationSchema: { required: "Введите e-mail", pattern: /^\S+@\S+$/i }
+      type: "text",
+      validationSchema: emailValidationSchema
     },
     {
-      name: "login-password",
+      name: "password",
       label: "Пароль",
       type: "password",
       validationSchema: { required: "Введите пароль" }
     },
   ]
+
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const onFail = (message) => {
+    setErrorMessage(message);
+  }
+  const onSubmit = (data) => {
+    onLogin(data, onFail);
+  };
+
   return (
     <main className="login">
       <Form
@@ -30,7 +38,8 @@ function Login () {
         buttonText="Войти"
         altText="Еще не зарегистрированы?"
         altLink="/signup"
-        altLinkText="Регистрация" />
+        altLinkText="Регистрация"
+        errorMessage={errorMessage} />
     </main>
   );
 }

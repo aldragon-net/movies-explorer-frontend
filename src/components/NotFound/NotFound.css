@@ -49,6 +49,7 @@
   font-size: 14px;
   font-weight: 400;
   cursor: pointer;
+  text-align: center;
 }
 @media screen and (max-width: 550px) {
   .not-found__backlink{

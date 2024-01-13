@@ -1,7 +1,7 @@
 import './AboutMe.css';
-import myPhoto from '../../images/aboutme/alexander_drakon.jpg'
-import Portfolio from '../Portfolio/Portfolio.js';
 import { Link } from 'react-router-dom';
+import Portfolio from '../Portfolio/Portfolio.js';
+import myPhoto from '../../images/aboutme/alexander_drakon.jpg'
 
 function AboutMe () {
   return (

@@ -1,36 +1,41 @@
 import './Register.css';
-import Form from '../Form/Form';
+import Form from '../Form/Form.js';
+import { useState } from 'react';
+import {
+  nameValidationSchema,
+  emailValidationSchema,
+  passwordValidationSchema
+} from '../../utils/validation.js';
 
-function Register () {
+function Register ({onRegister}) {
   const registerInputs = [
     {
       name: "name",
       label: "Имя",
       type: "text",
-      validationSchema: { required: "Введите имя" }
+      validationSchema: nameValidationSchema
     },
     {
       name: "email",
       label: "Email",
-      type: "email",
-      validationSchema: {
-        required: "Введите E-mail",
-        pattern: {
-          value: /^\S+@\S+$/i,
-          message: "Введите валидный e-mail"
-        }
-      }
+      type: "text",
+      validationSchema: emailValidationSchema
     },
     {
       name: "password",
       label: "Пароль",
       type: "password",
-      validationSchema: { required: "Введите пароль", minLength: {value: 6, message: "Не менее 6 символов"} }
+      validationSchema: passwordValidationSchema
     },
   ]
 
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const onFail = (message) => {
+    setErrorMessage(message);
+  }
   const onSubmit = (data) => {
-    console.log(data);
+    onRegister(data, onFail);
   };
 
   return (
@@ -43,7 +48,8 @@ function Register () {
         buttonText="Зарегистрироваться"
         altText="Уже зарегистрированы?"
         altLink="/signin"
-        altLinkText="Войти" />
+        altLinkText="Войти"
+        errorMessage={errorMessage}/>
     </main>
   );
 }

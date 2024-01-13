@@ -1,12 +1,17 @@
 .movies-card {
+  width: min(380px, 100%);
   display: flex;
   flex-direction: column;
   row-gap: 14px;
   position: relative;
+  margin: 0 auto;
 }
 
 .movies-card__image {
-  object-fit: contain;
+  width: 100%;
+  aspect-ratio: 1.768;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
 .movies-card__info {
@@ -70,6 +75,11 @@
 .movies-card:hover .movies-card__save-icon {
   visibility: visible;
 }
+@media screen and (max-width: 666px) {
+  .movies-card__save-icon {
+    visibility: visible;
+  }
+}
 @media (hover: hover) {
   .movies-card__save-icon:hover {
     opacity: 0.8;
@@ -121,6 +131,11 @@
   }
 .movies-card:hover .movies-card__unsave-icon {
   visibility: visible;
+}
+@media screen and (max-width: 666px) {
+  .movies-card__unsave-icon {
+    visibility: visible;
+  }
 }
 .movies-card__unsave-icon:hover {
   opacity: 0.8;

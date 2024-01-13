@@ -21,3 +21,14 @@
 .movies__button:hover {
   background-color: rgba(248, 248, 248, 0.8);
 }
+
+.movies__message {
+  font-size: 24px;
+  text-align: center;
+  color: #aaaaaa;
+}
+@media screen and (max-width: 550px) {
+  .movies__message {
+    font-size: 16px;
+  }
+}

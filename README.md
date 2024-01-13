@@ -1,4 +1,5 @@
 # Фронтенд дипломного проекта
+Ссылка на открытый PR: https://github.com/aldragon-net/movies-explorer-frontend/pull/2
 
 Билд проекта доступен по адресу https://diplodrakon.nomoredomainsmonster.ru/
 

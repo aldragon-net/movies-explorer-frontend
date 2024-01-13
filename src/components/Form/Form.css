@@ -70,6 +70,7 @@
 }
 .form__button_inactive {
   opacity: 0.3;
+  pointer-events: none;
 }
 
 .form__hint {

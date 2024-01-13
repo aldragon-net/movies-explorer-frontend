@@ -1,66 +1,81 @@
 import './Profile.css';
-import '../Form/Form.css';
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext } from 'react';
+import { useForm } from 'react-hook-form';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
+import { nameValidationSchema, emailValidationSchema } from '../../utils/validation.js';
 
-function Profile () {
+function Profile ({onUpdate, onLogout}) {
 
+  const user = useContext(CurrentUserContext);
   const [isEdited, setIsEdited] = useState(false);
-  const [errorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const { register, handleSubmit, formState, watch } = useForm(
+    {mode: "onChange", defaultValues: {name: user.name, email: user.email}}
+  );
 
-  const onSubmit = (e) => {
-    e.preventDefault()
-    handleEdit();
+  const onSuccess = () => {
+    setIsEdited(false);
+    setErrorMessage('');
+    setSuccessMessage('Данные профиля успешно изменены');
+  }
+  const onFail = (message) => {
+    setErrorMessage(message);
+  }
+  const onSubmit = (data) => {
+    onUpdate(data, onSuccess, onFail);
   }
   const handleEdit = () => {
-    setIsEdited(!isEdited);
+    setSuccessMessage('');
+    setIsEdited(true);
   }
-  const handleNameChange = (e) => {
-    setUserName(e.target.value)
-  }
-  const handleEmailChange = (e) => {
-    setUserEmail(e.target.value)
-  }
-  const user = useContext(CurrentUserContext);
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-
-  useEffect(() => {
-    setUserName(user.name);
-    setUserEmail(user.email);
-    }, [user.name, user.email]);
 
   return (
     <main className="profile">
-      <form className="profile__form" onSubmit={onSubmit}>
+      <form className="profile__form" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="profile__heading">{`Привет, ${user.name}!`}</h2>
         <div className="profile__field">
-            <label className="profile__label">Имя</label>
-            <input
-              className={`profile__input ${!isEdited && 'profile__input_inactive'}`}
-              value={userName}
-              onChange={handleNameChange}
-              type="text"
-             />
+          <label className="profile__label">Имя</label>
+          <input
+            className={`profile__input ${!isEdited && 'profile__input_inactive'}`}
+            type="text"
+            {...register("name", nameValidationSchema)}
+            />
         </div>
+        <p className="profile__field-error">
+          {formState.errors.name && formState.errors.name.message}
+        </p>
         <div className="profile__field">
-            <label className="profile__label">Email</label>
-            <input
-              className={`profile__input ${!isEdited && 'profile__input_inactive'}`}
-              value={userEmail}
-              onChange={handleEmailChange}
-              type="email" />
+          <label className="profile__label">Email</label>
+          <input
+            className={`profile__input ${!isEdited && 'profile__input_inactive'}`}
+            type="text"
+            {...register("email", emailValidationSchema)} />
         </div>
-        <p className="profile__error">{errorMessage}</p>
-      {!isEdited ?
-        <>
-          <p className="profile__edit" onClick={handleEdit}>Редактировать</p>
-          <p className="profile__logout">Выйти из аккаунта</p>
-        </>
-      :
-        <button className="profile__button" type="submit">Сохранить</button>
-      }
-
+        <p className="profile__field-error">
+          {formState.errors.email && formState.errors.email.message}
+        </p>
+        <p className={`profile__message ${errorMessage && "profile__error"}`}>
+          {errorMessage}{successMessage}
+        </p>
+        {!isEdited
+          ?
+            <>
+              <p className="profile__edit" onClick={handleEdit}>Редактировать</p>
+              <p className="profile__logout" onClick={onLogout}>Выйти из аккаунта</p>
+            </>
+          :
+            <button
+              className={
+                `profile__button
+                ${(!formState.isValid
+                    ||
+                   (watch("name") === user.name && watch("email") === user.email )
+                  ) && 'profile__button_inactive'}`
+              }
+              type="submit">
+              Сохранить
+            </button> }
       </form>
     </main>
   );
